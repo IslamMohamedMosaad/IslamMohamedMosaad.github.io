@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Islam Mohamed
+title:
 ---
 
 ### Hi, I'm Islam.  
