@@ -4,9 +4,9 @@ title: About
 image: cutting.jpg
 ---
 
-<img src="assets/img/cutting.jpg"/>
 
-</br></br>
+![img]({{ '/assets/img/cutting.jpg'}})
+{: style="width: 560px;" class="center"}
 
 ### Hi, I'm Islam.  
   
