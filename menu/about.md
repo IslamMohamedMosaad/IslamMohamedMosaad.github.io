@@ -4,7 +4,8 @@ title: About
 image: cutting.jpg
 ---
 
-<img src="assets/cutting.jpg"/>
+<img src="assets/img/cutting.jpg"/>
+
 </br></br>
 
 ### Hi, I'm Islam.  
