@@ -1,4 +1,5 @@
 ---
+title: Mixed-Precision Training 
 layout: default
 title: "404: Page not found"
 permalink: 404.html
