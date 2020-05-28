@@ -4,6 +4,9 @@ title: About
 image: cutting.jpg
 ---
 
+<img src="assets/cutting.jpg"/>
+</br></br>
+
 ### Hi, I'm Islam.  
   
 I am a Senior Researcher and Machine Learning Engineer at <a href="https://www.rdi-eg.com/">RDI</a> and an MSc student at Cairo University.  
