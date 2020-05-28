@@ -1,6 +1,7 @@
 ---
 layout: page
 title: About
+image: cutting.jpg
 ---
 
 ### Hi, I'm Islam.  
