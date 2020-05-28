@@ -1,4 +1,15 @@
-github: [metadata]
+# Site Build Settings
+
+# Jekyll-paginate-v2 configuration
+#  pagination:
+#   enabled: true
+#   per_page: 5
+#   permalink: '/page/:num/'
+#   title: ':title - page :num of :max'
+#   limit: 0
+#   sort_field: 'date'
+#   sort_reverse: false
+
 # jekyll-paginate configuration
 paginate:            5
 paginate_path: "/writing/:num/"
@@ -13,3 +24,13 @@ plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-t
 title:		           'Islam Mohamed'
 description:	       ''
 author:              'Islam Mohamed'
+
+# RSS 2.0 can be used instead of Atom by uncommenting following two lines
+#feed:
+#  path: rss-feed.xml
+
+#baseurl: '/oftut'
+#production_url : http://bioinformatics.plants.ox.ac.uk/blog
+#BASE_PATH : http://bioinformatics.plants.ox.ac.uk/blog
+#site.baseurl: ''
+#site.github.url:     '/oftut'
