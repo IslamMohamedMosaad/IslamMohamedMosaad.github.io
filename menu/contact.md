@@ -3,4 +3,7 @@ layout: page
 title: Contact
 ---
 
-If you are having any problems, any questions or suggestions, feel free to [tweet at me](https://twitter.com/intent/tweet?text=%40paululele), or [file a GitHub issue](https://github.com/lenpaul/lagrange/issues/new)
+- <a href="/assets/CV_Islam_Mohamed.pdf" target="_blank">Curriculum Vitae</a>
+- <a href="https://github.com/IslamMohamedMosaad target="_blank">GitHub</a>
+- <a href="https://www.linkedin.com/in/islam-mohamed-32529266/" target="_blank">LinkedIn</a>
+- <a href="https://twitter.com/IslamMoha_ed" target="_blank">Twitter</a>
