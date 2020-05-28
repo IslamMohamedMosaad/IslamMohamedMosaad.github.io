@@ -7,7 +7,6 @@ tags: [documentation,sample]
 image: cutting.jpg
 ---
 
-</br></br>
 <h1>Hi, I'm Islam.</h1>
 
 <br/><br/>
