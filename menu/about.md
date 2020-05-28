@@ -6,7 +6,7 @@ image: cutting.jpg
 
 
 ![img]({{ '/assets/img/cutting.jpg'}})
-{: style="width: 560px;" class="center"}
+{: class="center"}
 
 ### Hi, I'm Islam.  
   
