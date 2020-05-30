@@ -18,8 +18,8 @@ In neural nets, all the computations are done in a **single precision floating p
   
 So an idea to reduce memory usage by dealing with 16-bits floats which called **Half precision floating point format** (FP16) But Half precision had some issues which localized in its small range and low precision, unlike single or double precision, floats, and for this reason, half precision sometimes won’t able to achieve the same accuracy.  
 So with **Mixed precision** which uses both single and half precision representations will able to speed up training and achieving the same accuracy.  
-</br> 
-</br>
+</br>   
+</br>  
 
 # Problems with half precision  
 To understand the problems with half precision, let’s have a look what an FP16 looks like :   
