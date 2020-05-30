@@ -26,7 +26,7 @@ To understand the problems with half precision, let’s have a look what an FP16
 
 ![half precision floating point format]({{'assets/img/floating-point-arithmetic-half-precision.jpg' | relative_url }}) 
 {: style="width: 560px;" class="center"}
-<p align="center"> *Fig. 1 : half precision floating point format.* </p>
+<p align="center"> Fig. 1 : half precision floating point format. </p>
 
 
 **It divided into three modules:**
@@ -36,7 +36,8 @@ To understand the problems with half precision, let’s have a look what an FP16
 
 
 **The value for this representation is calculated as shown below**  
-![half precision floating point format  with value for bits]({{'assets/img/1*2SF0OFMsC606KSDaVtBAdg.png' | relative_url }}) <p align="center"> *Fig. 2 : half precision floating point formatt with value for bits.* </p>
+![half precision floating point format  with value for bits]({{'assets/img/1*2SF0OFMsC606KSDaVtBAdg.png' | relative_url }}) 
+<p align="center"> Fig. 2 : half precision floating point formatt with value for bits. </p>
 
 1. If the exponent bits is ones (11111), then the value will be NaN ("Not a number").  
 2. If the exponent bits is zeros (0000), then the value will be a subnormal number and calculated by :  
@@ -79,7 +80,7 @@ To overcome the first problem we use a copy from the FP32 master of all weights 
 
 ![Mixed precision training iteration for a layer]({{'assets/img/Mixed precision training iteration for a layer.png' | relative_url }}) 
 {: style="width: 560px;" class="center;" width: 150%;}
-<p align="center"> *Fig. 3 : Mixed precision training iteration for a layer.*   </p>
+<p align="center"> Fig. 3 : Mixed precision training iteration for a layer.   </p>
 Through the storing an additional copy of weights increases the memory requirements but the overall memory consumptions is approximately halved the need by FP32 training.  
 
 ### Loss (Gredient) Scaling
