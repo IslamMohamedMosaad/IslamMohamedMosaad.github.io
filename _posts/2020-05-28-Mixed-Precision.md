@@ -62,7 +62,7 @@ Since Weight.Gradient and Learning_Rate usually with small values and as shown b
 
 ### Underflow Risk
 In FP16, Gradients will get converted to zero because gradients usually are too low.   
-In FP16 arithmetic the values smaller than 0.000000059605 = 2^24 become zero as this value is the smallest positive subnormal number and for more details investigate [here](https://en.wikipedia.org/wiki/Half-precision_floating-point_format).   
+In FP16 arithmetic the values smaller than 0.000000059605 = 2^-24 become zero as this value is the smallest positive subnormal number and for more details investigate [here](https://en.wikipedia.org/wiki/Half-precision_floating-point_format).   
 With underflow, network never learns anything.  
 
 ### Overflow Risk
