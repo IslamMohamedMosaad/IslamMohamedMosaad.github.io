@@ -49,7 +49,7 @@ To understand the problems with half precision, let’s have a look what an FP16
 > And that will cause numbers of problems while training DNNs.  
 > For trying and investigation through conversion or adding in binary 16 float point check this [site](http://weitz.de/ieee/).
 
-# Here are the main issues while training with FP16
+#The main issues while training with FP16
 1. Values is imprecise.
 2. Underflow Risk.
 3. Exploding Risk.
