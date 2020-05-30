@@ -22,9 +22,13 @@ The problem in Half precision localized in its smaller range and lower precision
 But with **Mixed precision** which uses both single and half precision representations will able to speed up training and achieving the same accuracy.  
 
 # Problems with half precision  
-To understand the problems with half precision, let’s have a look what an FP16 looks like :  
-![half precision floating point format]({{'assets/img/floating-point-arithmetic-half-precision.jpg' | relative_url }})  
-*Fig. 1 : half precision floating point formatt.*  
+To understand the problems with half precision, let’s have a look what an FP16 looks like :   
+
+![half precision floating point format]({{'assets/img/floating-point-arithmetic-half-precision.jpg' | relative_url }}) {
+  width: 50%;
+  border: none;
+  background: none;
+} *Fig. 1 : half precision floating point formatt.*  
 
 **It divided into three modules:**
 1. The bit number 15 is the sign bit.
@@ -33,8 +37,7 @@ To understand the problems with half precision, let’s have a look what an FP16
 
 
 **The value for this representation is calculated as shown below**  
-![half precision floating point format  with value for bits]({{'assets/img/1*2SF0OFMsC606KSDaVtBAdg.png' | relative_url }})
-*Fig. 2 : half precision floating point formatt with value for bits.*
+![half precision floating point format  with value for bits]({{'assets/img/1*2SF0OFMsC606KSDaVtBAdg.png' | relative_url }}) *Fig. 2 : half precision floating point formatt with value for bits.*
 
 1. If the exponent bits is ones (11111), then the value will be NaN ("Not a number").  
 2. If the exponent bits is zeros (0000), then the value will be a subnormal number and calculated by :  
@@ -75,8 +78,11 @@ Mainly there are three techniques for preventing the loss of critical informatio
 ### Single precision FP32 Master copy of weights and updates
 To overcome the first problem we use a copy from the FP32 master of all weights and in each iteration apply the forward and backward propagation in FP16 and then update weights stored in the master copy as shown below.  
 
-![Mixed precision training iteration for a layer]({{'assets/img/Mixed precision training iteration for a layer.png' | relative_url }})
-*Fig. 3 : Mixed precision training iteration for a layer.*
+![Mixed precision training iteration for a layer]({{'assets/img/Mixed precision training iteration for a layer.png' | relative_url }}) {
+  width: 150%;
+  border: none;
+  background: none;
+} *Fig. 3 : Mixed precision training iteration for a layer.*
 
 Through the storing an additional copy of weights increases the memory requirements but the overall memory consumptions is approximately halved the need by FP32 training.  
 
