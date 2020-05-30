@@ -4,6 +4,7 @@ title: "Mixed Precision Training"
 author: "Islam Mohamed"
 categories: journal
 tags: [documentation,sample]
+image: maxresdefault.jpg
 ---
 
 # A High-Level Look
