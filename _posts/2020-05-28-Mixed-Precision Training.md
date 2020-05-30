@@ -7,7 +7,7 @@ permalink: 404.html
 
 Deep Neural Networks (DNNs) have lead to breakthroughs in Computer Vision, Natural Language Understanding, Speech Recognition tasks and many others.  
   
-with increasing the size of  DNNs (typically improves accuracy ), the computational resources increased (GPU utilization , Memory) so new techniques have been developed to train models faster without losing accuracy or modifying the network hyper-parameters.  
+Although the increasing size DNNs typically improves accuracy but the computational resources also increase (GPU utilization , Memory) so new techniques have been developed to train models faster without losing accuracy or modifying the network hyper-parameters.  
     
 In neural nets, all the computations are done in single precision floating point but by lowering the required memory will be enabled to train larger models or train with larger minibatches.  
   
