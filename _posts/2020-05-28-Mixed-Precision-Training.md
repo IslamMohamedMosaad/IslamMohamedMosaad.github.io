@@ -79,7 +79,6 @@ Mainly there are three techniques for preventing the loss of critical informatio
 To overcome the first problem we use a copy from the FP32 master of all weights and in each iteration apply the forward and backward propagation in FP16 and then update weights stored in the master copy as shown below.  
 
 ![Mixed precision training iteration for a layer]({{'assets/img/Mixed precision training iteration for a layer.png' | relative_url }})
-{: style="width: 550px; max-width: 100%;"}
 *Fig. 3 : Mixed precision training iteration for a layer.*
 
 Through the storing an additional copy of weights increases the memory requirements but the overall memory consumptions is approximately halved the need by FP32 training.  
