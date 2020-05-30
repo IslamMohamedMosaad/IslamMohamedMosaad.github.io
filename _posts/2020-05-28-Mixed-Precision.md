@@ -4,7 +4,7 @@ layout: default
 ---
 
 
-Deep Neural Networks (DNNs) have achieved breakthroughs in Computer Vision, Natural Language Understanding, Speech Recognition tasks, and many others.  
+Deep Neural Networks (DNNs) have achieved breakthroughs in a number of areas, including Computer Vision, Natural Language Understanding, Speech Recognition tasks, and many others.  
   
 Although increasing network size typically improves accuracy, the computational resources also increase (GPU utilization, Memory) so new techniques have been developed to train models faster without losing accuracy or modifying the network hyper-parameters by lowering the required memory will enable us to train larger models or train with larger mini-batches.  
   
