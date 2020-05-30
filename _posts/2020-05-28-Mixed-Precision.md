@@ -54,18 +54,18 @@ To understand the problems with half precision, let’s have a look what an FP16
 2. Underflow Risk.
 3. Exploding Risk.
 
-## Values is imprecise
+### Values is imprecise
 In neural Network training all weights, activations, and gradients are stored as FP16.  
 And as we know updating weights is done based on this equation   
 **New_weight = Weight - Learning_Rate * Weight.Gradient**  
 Since Weight.Gradient and Learning_Rate usually with small values and as shown before in half precision if the weight is 1 and Learning_Rate is 0.0001 or lower that will made freezing thrugh weights value.  
 
-## Underflow Risk
+### Underflow Risk
 In FP16, Gradients will get converted to zero because gradients usually are too low.   
 In FP16 arithmetic the values smaller than 0.000000059605 = 2^24 become zero as this value is the smallest positive subnormal number and for more details investigate [here](https://en.wikipedia.org/wiki/Half-precision_floating-point_format).   
 With underflow, network never learns anything.  
 
-## Overflow Risk
+### Overflow Risk
 In FP16, activations and network paramters can increase till hitting NANs.   
 With overflow or exploding, network learns garbage.  
 
@@ -75,7 +75,7 @@ Mainly there are three techniques for preventing the loss of critical informatio
 2. Loss (Gredient) Scaling.  
 3. Accumulating half precision products into single precision.  
 
-# Single precision FP32 Master copy of weights and updates
+### Single precision FP32 Master copy of weights and updates
 To overcome the first problem we use a copy from the FP32 master of all weights and in each iteration apply the forward and backward propagation in FP16 and then update weights stored in the master copy as shown below.  
 
 ![Mixed precision training iteration for a layer]({{'' | relative_url }})
@@ -84,14 +84,14 @@ To overcome the first problem we use a copy from the FP32 master of all weights 
 
 Through the storing an additional copy of weights increases the memory requirements but the overall memory consumptions is approximately halved the need by FP32 training.  
 
-# Loss (Gredient) Scaling
+### Loss (Gredient) Scaling
 * Gradient values with magnitudes below 2^-27 were not relevant to training network, whereas it was important to preserve values in the [2^-27, 2^-24] range.  
 * Most of the half precision range is not used by gradients, which tend to be small values with magnitudes below 1. Thus, we can multiply them by a scale factor S to keep relevant gradient values from becoming zeros.  
 * This constant scaling factor is chosen empirically or, if gradient statistics are available, directly by choosing a factor so that its product with the maximum absolute gradient value is below 65,504 (the maximum value representable in FP16).  
 * Of course we don’t want those scaled gradients to be in the weight update, so after converting them into FP32, we can divide them by this scale factor (once they have no risks of becoming 0).   
 
 
-# Accumulating half precision products into single precision
+### Accumulating half precision products into single precision
 After investigatin through last issue found that the neural network arithmetic operations falls into three groups vector dot-products , Reductions and point-wise operations.  
 These categories benefit from different treatment when it comes to re-duced precision arithmetic.  
 * Some networks require that the FP16 vector dot-product accumulates the partial products into an FP32 value, which is then converted to FP16 before storing.  
