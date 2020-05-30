@@ -49,7 +49,7 @@ To understand the problems with half precision, let’s have a look what an FP16
 > And that will cause numbers of problems while training DNNs.  
 > For trying and investigation through conversion or adding in binary 16 float point check this [site](http://weitz.de/ieee/).
 
-#The main issues while training with FP16
+# The main issues while training with FP16
 1. Values is imprecise.
 2. Underflow Risk.
 3. Exploding Risk.
@@ -68,6 +68,35 @@ With underflow, network never learns anything.
 ## Overflow Risk
 In FP16, activations and network paramters can increase till hitting NANs.   
 With overflow or exploding, network learns garbage.  
+
+# The Proposed Techniques for Training with Mixed Precision  
+Mainly there are three techniques for preventing the loss of critical information.  
+1. Single precision FP32 Master copy of weights and updates.  
+2. Loss (Gredient) Scaling.  
+3. Accumulating half precision products into single precision.  
+
+# Single precision FP32 Master copy of weights and updates
+To overcome the first problem we use a copy from the FP32 master of all weights and in each iteration apply the forward and backward propagation in FP16 and then update weights stored in the master copy as shown below.  
+
+![Mixed precision training iteration for a layer]({{'' | relative_url }})
+{: style="width: 550px; max-width: 100%;"}
+*Fig. 3 : Mixed precision training iteration for a layer.*
+
+Through the storing an additional copy of weights increases the memory requirements but the overall memory consumptions is approximately halved the need by FP32 training.  
+
+# Loss (Gredient) Scaling
+* Gradient values with magnitudes below 2^-27 were not relevant to training network, whereas it was important to preserve values in the [2^-27, 2^-24] range.  
+* Most of the half precision range is not used by gradients, which tend to be small values with magnitudes below 1. Thus, we can multiply them by a scale factor S to keep relevant gradient values from becoming zeros.  
+* This constant scaling factor is chosen empirically or, if gradient statistics are available, directly by choosing a factor so that its product with the maximum absolute gradient value is below 65,504 (the maximum value representable in FP16).  
+* Of course we don’t want those scaled gradients to be in the weight update, so after converting them into FP32, we can divide them by this scale factor (once they have no risks of becoming 0).   
+
+
+# Accumulating half precision products into single precision
+After investigatin through last issue found that the neural network arithmetic operations falls into three groups vector dot-products , Reductions and point-wise operations.  
+These categories benefit from different treatment when it comes to re-duced precision arithmetic.  
+* Some networks require that the FP16 vector dot-product accumulates the partial products into an FP32 value, which is then converted to FP16 before storing.  
+* Large reductions (sums across elements of a vector) should be carried out in FP32. Such reductionsmostly  come  up  in  batch-normalization  layers  when  accumulating  statistics  and  softmax  layers.  
+* Point-wise  operations,  such  as  non-linearities  and  element-wise  matrix  products,  are  memory-bandwidth limited. Since arithmetic precision does not impact the speed of these operations, eitherFP16 or FP32 math can be used.  
 
 
 
