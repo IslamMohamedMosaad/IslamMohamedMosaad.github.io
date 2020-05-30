@@ -26,7 +26,7 @@ To understand the problems with half precision, let’s have a look what an FP16
 
 ![half precision floating point format]({{'assets/img/floating-point-arithmetic-half-precision.jpg' | relative_url }}) 
 {: style="width: 560px;" class="center"}
-<div align=”center”> [ *Fig. 1 : half precision floating point formatt.*   ]</div> 
+<div align=”center”> [ *Fig. 1 : half precision floating point format.*   ]</div> 
 
 
 **It divided into three modules:**
