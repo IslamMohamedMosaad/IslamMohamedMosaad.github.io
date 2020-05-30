@@ -24,10 +24,11 @@ So with **Mixed precision** which uses both single and half precision representa
 # Problems with half precision  
 To understand the problems with half precision, let’s have a look what an FP16 looks like :   
 
-![half precision floating point format]({{'assets/img/floating-point-arithmetic-half-precision.jpg' | relative_url }}) 
-{: style="width: 560px;" class="center"}
-<p align="center"> Fig. 1 : half precision floating point format. </p>
-
+<p align="center">
+  <img width="460" height="300" src="assets/img/floating-point-arithmetic-half-precision.jpg">
+  {: style="width: 560px; "  class="center"}
+  <p align="center"> Fig. 1 : half precision floating point format. </p>
+</p>
 
 **It divided into three modules:**
 1. The bit number 15 is the sign bit.
