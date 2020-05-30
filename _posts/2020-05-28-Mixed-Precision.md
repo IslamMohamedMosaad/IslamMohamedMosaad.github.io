@@ -1,8 +1,12 @@
 ---
-title: Mixed-Precision 
-layout: default
+layout: post
+title: "Mixed Precision"
+author: "Islam Mohamed"
+categories: journal
+tags: [documentation,sample]
 ---
 
+## A High-Level Look
 
 Deep Neural Networks (DNNs) have achieved breakthroughs in a number of areas, including Computer Vision, Natural Language Understanding, Speech Recognition tasks, and many others.  
   
