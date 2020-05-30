@@ -24,8 +24,6 @@ But with **Mixed precision** which uses both single and half precision represent
 # Problems with half precision  
 To understand the problems with half precision, let’s have a look what an FP16 looks like :  
 ![half precision floating point format](assets/img/floating-point-arithmetic-half-precision.jpg)  
-
-{: style="width: 550px; max-width: 90%;"}  
 *Fig. 1 : half precision floating point formatt.*  
 
 **It divided into three modules:**
@@ -36,7 +34,6 @@ To understand the problems with half precision, let’s have a look what an FP16
 
 **The value for this representation is calculated as shown below**  
 ![half precision floating point format  with value for bits]({{'../assets/img/1*2SF0OFMsC606KSDaVtBAdg.png' | relative_url }})
-{: style="width: 550px; max-width: 100%;"}
 *Fig. 2 : half precision floating point formatt with value for bits.*
 
 1. If the exponent bits is ones (11111), then the value will be NaN ("Not a number").  
