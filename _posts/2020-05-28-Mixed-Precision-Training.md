@@ -49,7 +49,7 @@ So with **Mixed precision** which uses both single and half precision representa
 > And that will cause numbers of problems while training DNNs.  
 > For trying and investigation through conversion or adding in binary 16 float point check this [site](http://weitz.de/ieee/).
 <br>
-
+<br>
 # The main issues while training with FP16
 1. Values is imprecise.
 2. Underflow Risk.
