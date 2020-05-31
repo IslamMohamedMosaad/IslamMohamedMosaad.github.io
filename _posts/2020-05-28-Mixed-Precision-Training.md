@@ -21,7 +21,8 @@ So with **Mixed precision** which uses both single and half precision representa
 <br>   
 
 # Problems with half precision  
-To understand the problems with half precision, let’s have a look what an FP16 looks like : 
+<p>To understand the problems with half precision, let’s have a look what an FP16 looks like :</p>  
+
 <br>
 ![half precision floating point format]({{'assets/img/floating-point-arithmetic-half-precision.jpg#center' | relative_url }})
 {: style="width: 400px;" class="center;" width: 50%;}
@@ -34,6 +35,7 @@ To understand the problems with half precision, let’s have a look what an FP16
 
 
 **The value for this representation is calculated as shown below**  
+<br>
 ![half precision floating point format  with value for bits]({{'assets/img/1*2SF0OFMsC606KSDaVtBAdg.png' | relative_url }}) 
 <p align="center"> Fig. 2 : half precision floating point formatt with value for bits. </p>
 
