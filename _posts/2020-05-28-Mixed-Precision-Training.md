@@ -26,7 +26,7 @@ So with **Mixed precision** which uses both single and half precision representa
 <br>
 ![half precision floating point format]({{'assets/img/floating-point-arithmetic-half-precision.jpg#center' | relative_url }})
 {: style="width: 400px;" class="center;" width: 50%;}
-<p> Fig. 1 : half precision floating point format. </p>
+<p align="center"> Fig. 1 : half precision floating point format. </p>
 
 **It divided into three modules:**
 1. The bit number 15 is the sign bit.
@@ -48,8 +48,10 @@ So with **Mixed precision** which uses both single and half precision representa
 > Based on half precision floating point methodology if we tried to add 1 + 0.0001 the output will be 1 because of the limited range and aligning between 1 and 0.0001 as shown in this [answer](https://cs.stackexchange.com/questions/63642/how-to-add-two-numbers-in-iee754-half-precision-format).  
 > And that will cause numbers of problems while training DNNs.  
 > For trying and investigation through conversion or adding in binary 16 float point check this [site](http://weitz.de/ieee/).
+
 <br>
 <br>
+
 # The main issues while training with FP16
 1. Values is imprecise.
 2. Underflow Risk.
