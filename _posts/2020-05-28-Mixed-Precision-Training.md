@@ -69,6 +69,7 @@ With underflow, network never learns anything.
 ### Overflow Risk
 In FP16, activations and network paramters can increase till hitting NANs.   
 With overflow or exploding, network learns garbage.  
+<br>
 
 # The Proposed Techniques for Training with Mixed Precision  
 Mainly there are three techniques for preventing the loss of critical information.  
