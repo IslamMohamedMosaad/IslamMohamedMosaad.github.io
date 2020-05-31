@@ -63,7 +63,7 @@ Since Weight.Gradient and Learning_Rate usually with small values and as shown b
 
 ### Underflow Risk
 In FP16, Gradients will get converted to zero because gradients usually are too low.   
-In FP16 arithmetic the values smaller than 0.000000059605 = 2^-24 become zero as this value is the smallest positive subnormal number and for more details investigate [here](https://en.wikipedia.org/wiki/Half-precision_floating-point_format).   
+In FP16 arithmetic the values smaller than 0.000000059605 = 2 ^ -24 become zero as this value is the smallest positive subnormal number and for more details investigate [here](https://en.wikipedia.org/wiki/Half-precision_floating-point_format).   
 With underflow, network never learns anything.  
 
 ### Overflow Risk
@@ -86,7 +86,7 @@ To overcome the first problem we use a copy from the FP32 master of all weights 
 Through the storing an additional copy of weights increases the memory requirements but the overall memory consumptions is approximately halved the need by FP32 training.  
 
 ### Loss (Gredient) Scaling
-* Gradient values with magnitudes below 2^-27 were not relevant to training network, whereas it was important to preserve values in the [2^-27, 2^-24] range.  
+* Gradient values with magnitudes below 2 ^ -27 were not relevant to training network, whereas it was important to preserve values in the [2 ^ -27, 2 ^ -24] range.  
 * Most of the half precision range is not used by gradients, which tend to be small values with magnitudes below 1. Thus, we can multiply them by a scale factor S to keep relevant gradient values from becoming zeros.  
 * This constant scaling factor is chosen empirically or, if gradient statistics are available, directly by choosing a factor so that its product with the maximum absolute gradient value is below 65,504 (the maximum value representable in FP16).  
 * Of course we don’t want those scaled gradients to be in the weight update, so after converting them into FP32, we can divide them by this scale factor (once they have no risks of becoming 0).   
