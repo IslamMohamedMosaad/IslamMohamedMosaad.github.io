@@ -3,7 +3,7 @@ layout: post
 title: "Mixed Precision Training"
 author: "Islam Mohamed"
 categories: journal
-tags: [documentation,sample]
+tags: [Half Precision,Deep Neural Networks,Single Precision,Mixed Precision,FP16]
 image: maxresdefault.jpg
 ---
 
@@ -89,7 +89,7 @@ Through the storing an additional copy of weights increases the memory requireme
 * Gradient values with magnitudes below 2 ^ -27 were not relevant to training network, whereas it was important to preserve values in the [2 ^ -27, 2 ^ -24] range.  
 * Most of the half precision range is not used by gradients, which tend to be small values with magnitudes below 1. Thus, we can multiply them by a scale factor S to keep relevant gradient values from becoming zeros.  
 * This constant scaling factor is chosen empirically or, if gradient statistics are available, directly by choosing a factor so that its product with the maximum absolute gradient value is below 65,504 (the maximum value representable in FP16).  
-* Of course we don’t want those scaled gradients to be in the weight update, so after converting them into FP32, we can divide them by this scale factor (once they have no risks of becoming 0).   
+* Of course we don’t want those scaled gradients to be in the weight update, so after converting them into FP32,  we can divide them by this scale factor (once they have no risks of becoming 0).   
 
 
 ### Accumulating half precision products into single precision
@@ -97,7 +97,7 @@ After investigatin through last issue found that the neural network arithmetic o
 These categories benefit from different treatment when it comes to re-duced precision arithmetic.  
 * Some networks require that the FP16 vector dot-product accumulates the partial products into an FP32 value, which is then converted to FP16 before storing.  
 * Large reductions (sums across elements of a vector) should be carried out in FP32. Such reductionsmostly  come  up  in  batch-normalization  layers  when  accumulating  statistics  and  softmax  layers.  
-* Point-wise  operations,  such  as  non-linearities  and  element-wise  matrix  products,  are  memory-bandwidth limited. Since arithmetic precision does not impact the speed of these operations, eitherFP16 or FP32 math can be used.  
+* Point-wise  operations,  such  as  non-linearities  and  element-wise  matrix  products,  are  memory-bandwidth limited. Since arithmetic precision does not impact the speed of these operations, either FP16 or FP32 math can be used.  
 
 
 
