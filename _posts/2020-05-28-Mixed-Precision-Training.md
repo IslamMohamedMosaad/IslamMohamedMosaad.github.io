@@ -21,11 +21,10 @@ So with **Mixed precision** which uses both single and half precision representa
 <br>   
 
 # Problems with half precision  
-To understand the problems with half precision, let’s have a look what an FP16 looks like :   
-<p align="center">
+To understand the problems with half precision, let’s have a look what an FP16 looks like : 
+<br>
 ![half precision floating point format]({{'assets/img/floating-point-arithmetic-half-precision.jpg#center' | relative_url }})
 {: style="width: 400px;" class="center;" width: 50%;}
- </p>
 <p> Fig. 1 : half precision floating point format. </p>
 
 **It divided into three modules:**
