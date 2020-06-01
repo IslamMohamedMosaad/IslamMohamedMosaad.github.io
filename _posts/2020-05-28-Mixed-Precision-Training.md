@@ -101,6 +101,41 @@ These categories benefit from different treatment when it comes to re-duced prec
 * Large reductions (sums across elements of a vector) should be carried out in FP32. Such reductionsmostly  come  up  in  batch-normalization  layers  when  accumulating  statistics  and  softmax  layers.  
 * Point-wise  operations,  such  as  non-linearities  and  element-wise  matrix  products,  are  memory-bandwidth limited. Since arithmetic precision does not impact the speed of these operations, either FP16 or FP32 math can be used.  
 
+<br>  
+<br>  
+
+# Mixed Precision Training at a high level
+1. Maintain a master copy of weights in FP32.
+2. Initialize S to a large value.
+3. For each iteration:
+    3.1 Make an FP16 copy of the weights.
+    3.2 Forward propagation (FP16 weights and activations).
+    3.3 Multiply the resulting loss with the scaling factor S.
+    3.4 Backward propagation (FP16 weights, activations, and their gradients).
+    3.5 If there is an Inf or NaN in weight gradients:
+        3.5.1 Reduce S.
+        3.5.2 Skip the weight update and move to the next iteration.
+    3.6 Multiply the weight gradient with 1/S.
+    3.7 Complete the weight update (including gradient clipping, etc.).
+    3.8 If there hasn’t been an Inf or NaN in the last N iterations, increase S.
+    
+<br>  
+<br>  
+
+# Mixed Precision APIs  
+* NVIDIA developed [Apex](https://github.com/NVIDIA/apex) as an extension for easy mixed precision and distributed training in Pytorch to enable researchers to  improve train their models.  
+* But now a native automatic mixed precision supported in pytorch to avoid some point in Apex like   
+1. Build extensions
+2. Windows not supported
+3. Don't guarantee Pytorch version compatibility
+4. Don't support forward/backward compatibilty
+5. Don't support Data Parallel and intra-process model parallelism 
+5. flaky checkpointing
+6. Others  
+* **torch.cuda.amp** fixes all of these issues, the interface become more flexible and intuitive, and the tighter integration with pytorch brings more future optimizations into scope.  
+* So No need now to compile Apex.  
+* And Tensorflow also supported mixed precision training.  
+
 
 
 
