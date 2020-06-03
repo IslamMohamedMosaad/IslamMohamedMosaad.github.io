@@ -50,7 +50,6 @@ So with **Mixed precision** which uses both single and half precision representa
 > For trying and investigation through conversion or adding in binary 16 float point check this [site](http://weitz.de/ieee/).
 
 <br>
-<br>
 
 # The main issues while training with FP16
 1. Values is imprecise.
@@ -102,7 +101,6 @@ These categories benefit from different treatment when it comes to re-duced prec
 * Point-wise  operations,  such  as  non-linearities  and  element-wise  matrix  products,  are  memory-bandwidth limited. Since arithmetic precision does not impact the speed of these operations, either FP16 or FP32 math can be used.  
 
 <br>  
-<br>  
 
 # Mixed Precision Training at a high level
 1. Maintain a master copy of weights in FP32.
@@ -120,21 +118,29 @@ These categories benefit from different treatment when it comes to re-duced prec
     3.8 If there hasn’t been an Inf or NaN in the last N iterations, increase S.
     
 <br>  
-<br>  
 
 # Mixed Precision APIs  
 * NVIDIA developed [Apex](https://github.com/NVIDIA/apex) as an extension for easy mixed precision and distributed training in Pytorch to enable researchers to  improve train their models.  
 * But now a native automatic mixed precision supported in pytorch to avoid some point in Apex like   
-1. Build extensions
-2. Windows not supported
-3. Don't guarantee Pytorch version compatibility
-4. Don't support forward/backward compatibilty
-5. Don't support Data Parallel and intra-process model parallelism 
-5. flaky checkpointing
-6. Others  
-* **torch.cuda.amp** fixes all of these issues, the interface become more flexible and intuitive, and the tighter integration with pytorch brings more future optimizations into scope.  
+1. Build extensions  
+2. Windows not supported  
+3. Don't guarantee Pytorch version compatibility  
+4. Don't support forward/backward compatibilty  
+5. Don't support Data Parallel and intra-process model parallelism   
+5. flaky checkpointing  
+6. Others    
+* **torch.cuda.amp** fixes all of these issues, the interface become more flexible and intuitive, and the tighter integration with pytorch brings more future optimizations into scope.    
 * So No need now to compile Apex.  
 * And Tensorflow also supported mixed precision training.  
+<br>
+
+# Automatic Mixed Precision package - torch.cuda.amp  
+* **torch.cuda.amp** provides convenience methods for running networks with mixed precision, where some operations use the torch.float32 (float) datatype and other operations use torch.float16 (half) as we have shown before.
+* Till now Pytorch still developing an automatic mixed precision package but Gradient Scaling class is done and stable for usage.
+* This Package mainly use **torch.cuda.amp.autocast and torch.cuda.amp.GradScaler** modules together.
+* **[torch.cuda.amp.GradScaler](https://pytorch.org/docs/stable/notes/amp_examples.html#gradient-scaling)** is not a complete implementation of automatic mixed precision but useful when you manually run regions of your model in float16.
+* If you aren’t sure how to choose operation precision manually  so you have to use **[torch.cuda.amp.autocast](https://pytorch.org/docs/master/amp.html#autocasting)** which serves as context managers or decorators that allow regions of your script to run in mixed precision `NOT Stable Yet`.
+> If you trained your model on FP32 and while testing called model.half(), Pytorch will convert all the model weights to half precision and then forward with that.
 
 
 
