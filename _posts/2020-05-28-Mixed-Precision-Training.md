@@ -124,6 +124,7 @@ These categories benefit from different treatment when it comes to re-duced prec
     3.7 Complete the weight update (including gradient clipping, etc.).  
     3.8 If there hasn’t been an Inf or NaN in the last N iterations, increase S.     
 <br>  
+
 # **Mixed Precision APIs**
 * NVIDIA developed [Apex](https://github.com/NVIDIA/apex) as an extension for easy mixed precision and distributed training in Pytorch to enable researchers to  improve train their models.  
 * But now a native automatic mixed precision supported in pytorch to avoid some point in Apex like   
@@ -150,6 +151,7 @@ These categories benefit from different treatment when it comes to re-duced prec
 * If you aren’t sure how to choose operation precision manually  so you have to use **[torch.cuda.amp.autocast](https://pytorch.org/docs/master/amp.html#autocasting)** which serves as context managers or decorators that allow regions of your script to run in mixed precision `NOT Stable Yet`.
 > Note :
 If you trained your model on FP32 and while testing called model.half(), Pytorch will convert all the model weights to half precision and then forward with that.
+<br>
 <br>
 
 # **References**
