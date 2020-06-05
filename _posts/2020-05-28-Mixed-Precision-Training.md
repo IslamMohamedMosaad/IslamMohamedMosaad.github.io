@@ -7,7 +7,7 @@ tags: [Half Precision,Deep Neural Networks,Single Precision,Mixed Precision,FP16
 image: maxresdefault.jpg
 ---
 
-# A High-Level Look
+# **A High-Level Overview**
 
 Deep Neural Networks (DNNs) have achieved breakthroughs in several areas, including Computer Vision, Natural Language Understanding, Speech Recognition tasks, and many others.  
   
@@ -20,12 +20,14 @@ So an idea to reduce memory usage by dealing with 16-bits floats which called **
 So with **Mixed precision** which uses both single and half precision representations will able to speed up training and achieving the same accuracy.  
 <br>   
 
-# Problems with half precision  
+# **Problems in half precision**  
 <p>To understand the problems with half precision, let’s have a look what an FP16 looks like :</p>  
 
 <br>
 ![half precision floating point format]({{'assets/img/floating-point-arithmetic-half-precision.jpg#center' | relative_url }})
 {: style="width: 400px;" class="center;" width: 50%;}
+
+<img align="center" width="100" height="100" src="assets/img/floating-point-arithmetic-half-precision.jpg">
 <p align="center"> Fig. 1 : half precision floating point format. </p>
 
 **It divided into three modules:**
