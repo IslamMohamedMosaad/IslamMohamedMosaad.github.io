@@ -54,7 +54,8 @@ Fig. 1 : half precision floating point format.
 > And that will cause numbers of problems while training DNNs, For trying and investigation through conversion or adding in binary 16 float point check this [site](http://weitz.de/ieee/).
 <br>   
 <br>
-# **The main issues while training with FP16**
+
+# **The main issues while training with FP16**  
 1. Values is imprecise.
 2. Underflow Risk.
 3. Exploding Risk.
@@ -62,8 +63,9 @@ Fig. 1 : half precision floating point format.
 ### **Values is imprecise**
 In neural Network training all weights, activations, and gradients are stored as FP16.  
 And as we know updating weights is done based on this equation 
-<p align="center">
-**New_weight = Weight - Learning_Rate * Weight.Gradient**  
+<p align="center"> <strong>
+New_weight = Weight - Learning_Rate * Weight.Gradient  
+</strong>
 </p>
 Since Weight.Gradient and Learning_Rate usually with small values and as shown before in half precision if the weight is 1 and Learning_Rate is 0.0001 or lower that will made freezing thrugh weights value.  
 
