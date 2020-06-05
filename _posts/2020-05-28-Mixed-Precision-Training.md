@@ -27,7 +27,7 @@ So with **Mixed precision** which uses both single and half precision representa
 ![half precision floating point format]({{'../../assets/img/floating-point-arithmetic-half-precision.jpg#center' | relative_url }})
 {: style="width: 400px;" class="center;" width: 50%;}
 
-<img align="center" width="100" height="100" src="../assets/img/floating-point-arithmetic-half-precision.jpg">
+<img align="center" width="500" height="150" src="../assets/img/floating-point-arithmetic-half-precision.jpg">
 <p align="center"> Fig. 1 : half precision floating point format. </p>
 
 **It divided into three modules:**
