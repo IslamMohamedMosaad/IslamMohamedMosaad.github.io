@@ -27,6 +27,8 @@ So with **Mixed precision** which uses both single and half precision representa
 
 <p align="center">
 <img align="center" width="400" height="100" src="../assets/img/floating-point-arithmetic-half-precision.jpg">
+</p>
+<p align="center">
 Fig. 1 : half precision floating point format.
 </p>
 
