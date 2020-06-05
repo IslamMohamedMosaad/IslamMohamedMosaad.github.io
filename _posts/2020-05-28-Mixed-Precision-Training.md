@@ -53,7 +53,7 @@ Fig. 1 : half precision floating point format.
 ><br>
 > And that will cause numbers of problems while training DNNs, For trying and investigation through conversion or adding in binary 16 float point check this [site](http://weitz.de/ieee/).
 <br>   
-
+<br>
 # **The main issues while training with FP16**
 1. Values is imprecise.
 2. Underflow Risk.
@@ -61,8 +61,10 @@ Fig. 1 : half precision floating point format.
 
 ### **Values is imprecise**
 In neural Network training all weights, activations, and gradients are stored as FP16.  
-And as we know updating weights is done based on this equation   
+And as we know updating weights is done based on this equation 
+<p align="center">
 **New_weight = Weight - Learning_Rate * Weight.Gradient**  
+</p>
 Since Weight.Gradient and Learning_Rate usually with small values and as shown before in half precision if the weight is 1 and Learning_Rate is 0.0001 or lower that will made freezing thrugh weights value.  
 
 ### **Underflow Risk**
@@ -94,7 +96,7 @@ Through the storing an additional copy of weights increases the memory requireme
 * Gradient values with magnitudes below 2 ^ -27 were not relevant to training network, whereas it was important to preserve values in the [2 ^ -27, 2 ^ -24] range.  
 * Most of the half precision range is not used by gradients, which tend to be small values with magnitudes below 1. Thus, we can multiply them by a scale factor S to keep relevant gradient values from becoming zeros.  
 * This constant scaling factor is chosen empirically or, if gradient statistics are available, directly by choosing a factor so that its product with the maximum absolute gradient value is below 65,504 (the maximum value representable in FP16).  
-* Of course we don’t want those scaled gradients to be in the weight update, so after converting them into FP32,  we can divide them by this scale factor (once they have no risks of becoming 0).   
+* Of course, we don’t want those scaled gradients to be in the weight update, so after converting them into FP32,  we can divide them by this scale factor (once they have no risks of becoming 0).  
 
 
 ### **Accumulating half precision products into single precision**
@@ -106,7 +108,7 @@ These categories benefit from different treatment when it comes to re-duced prec
 
 <br>  
 
-# **Mixed Precision Training at a high level**
+# **Mixed Precision Training Steps**
 1. Maintain a master copy of weights in FP32.
 2. Initialize S to a large value.
 3. For each iteration:
@@ -123,7 +125,7 @@ These categories benefit from different treatment when it comes to re-duced prec
     
 <br>  
 
-# **Mixed Precision APIs**
+# **Mixed Precision APIs **
 * NVIDIA developed [Apex](https://github.com/NVIDIA/apex) as an extension for easy mixed precision and distributed training in Pytorch to enable researchers to  improve train their models.  
 * But now a native automatic mixed precision supported in pytorch to avoid some point in Apex like   
 1. Build extensions  
@@ -133,18 +135,21 @@ These categories benefit from different treatment when it comes to re-duced prec
 5. Don't support Data Parallel and intra-process model parallelism   
 5. flaky checkpointing  
 6. Others    
+
+# **Mixed Precision In Frameworks**
 * **torch.cuda.amp** fixes all of these issues, the interface become more flexible and intuitive, and the tighter integration with pytorch brings more future optimizations into scope.    
 * So No need now to compile Apex.  
-* And Tensorflow also supported mixed precision training.  
+* Tensorflow also supported mixed precision training and that a great [source](https://medium.com/tensorflow/automatic-mixed-precision-in-tensorflow-for-faster-ai-training-on-nvidia-gpus-6033234b2540) for investigation.  
 <br>
 
-# **Automatic Mixed Precision package - torch.cuda.amp**
-* **torch.cuda.amp** provides convenience methods for running networks with mixed precision, where some operations use the torch.float32 (float) datatype and other operations use torch.float16 (half) as we have shown before.
+# **Automatic Mixed Precision package - Pytorch**
+* **[torch.cuda.amp](https://pytorch.org/docs/stable/amp.html)** provides convenience methods for running networks with mixed precision, where some operations use the torch.float32 (float) datatype and other operations use torch.float16 (half) as we have shown before.
 * Till now Pytorch still developing an automatic mixed precision package but Gradient Scaling class is done and stable for usage.
 * This Package mainly use **torch.cuda.amp.autocast and torch.cuda.amp.GradScaler** modules together.
 * **[torch.cuda.amp.GradScaler](https://pytorch.org/docs/stable/notes/amp_examples.html#gradient-scaling)** is not a complete implementation of automatic mixed precision but useful when you manually run regions of your model in float16.
 * If you aren’t sure how to choose operation precision manually  so you have to use **[torch.cuda.amp.autocast](https://pytorch.org/docs/master/amp.html#autocasting)** which serves as context managers or decorators that allow regions of your script to run in mixed precision `NOT Stable Yet`.
-> If you trained your model on FP32 and while testing called model.half(), Pytorch will convert all the model weights to half precision and then forward with that.
+> Note :
+If you trained your model on FP32 and while testing called model.half(), Pytorch will convert all the model weights to half precision and then forward with that.
 
 
 
