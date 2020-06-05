@@ -39,7 +39,7 @@ Fig. 1 : half precision floating point format.
 **The value for this representation is calculated as shown below**  
 
 <p align="center">
-<img align="center" width="400" height="100" src="../assets/img/1*2SF0OFMsC606KSDaVtBAdg.png">
+<img align="center"  src="../assets/img/1*2SF0OFMsC606KSDaVtBAdg.png">
 </p>
 <p align="center"> Fig. 2 : half precision floating point formatt with value for bits. </p>
 
@@ -86,7 +86,7 @@ Mainly there are three techniques for preventing the loss of critical informatio
 To overcome the first problem we use a copy from the FP32 master of all weights and in each iteration apply the forward and backward propagation in FP16 and then update weights stored in the master copy as shown below.  
 
 <p align="center">
-<img align="center" width="1024" height="200" src="../ssets/img/Mixed precision training iteration for a layer.png">
+<img align="center" width="1024" height="200" src="../assets/img/Mixed precision training iteration for a layer.png">
 </p>
 <p align="center"> Fig. 3 : Mixed precision training iteration for a layer.   </p>
 Through the storing an additional copy of weights increases the memory requirements but the overall memory consumptions is approximately halved the need by FP32 training.  
