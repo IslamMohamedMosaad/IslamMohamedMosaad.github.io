@@ -24,7 +24,7 @@ So with **Mixed precision** which uses both single and half precision representa
 <p>To understand the problems with half precision, let’s have a look what an FP16 looks like :</p>  
 
 <br>
-![half precision floating point format]({{'../assets/img/floating-point-arithmetic-half-precision.jpg#center' | relative_url }})
+![half precision floating point format]({{'../../assets/img/floating-point-arithmetic-half-precision.jpg#center' | relative_url }})
 {: style="width: 400px;" class="center;" width: 50%;}
 
 <img align="center" width="100" height="100" src="assets/img/floating-point-arithmetic-half-precision.jpg">
