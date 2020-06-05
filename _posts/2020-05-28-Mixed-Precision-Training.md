@@ -20,8 +20,8 @@ So an idea to reduce memory usage by dealing with 16-bits floats which called **
 So with **Mixed precision** which uses both single and half precision representations will able to speed up training and achieving the same accuracy.  
 <br>   
 
-# **Problems in half precision**  
-<p>To understand the problems with half precision, let’s have a look what an FP16 looks like :</p>  
+# **Problems In Half Precision**
+<p>To understand the problems inhalf precision, let’s have a look what an FP16 looks like :</p>  
 
 <p align="center">
 <img align="center" width="400" height="100" src="../assets/img/floating-point-arithmetic-half-precision.jpg">
@@ -30,13 +30,13 @@ So with **Mixed precision** which uses both single and half precision representa
 Fig. 1 : half precision floating point format.
 </p>
 
-**It divided into three modules:**
+**Divided Into three Modules**
 1. The bit number 15 is the sign bit.
-2. the bists for 10 to 14  are the exponent.
-3. the final 10 bits are the fraction.
+2. The bists for 10 to 14  are the exponent.
+3. The final 10 bits are the fraction.
 
 
-**The value for this representation is calculated as shown below**  
+**The values for this representation is calculated as shown below** 
 
 <p align="center">
 <img align="center"  src="../assets/img/1*2SF0OFMsC606KSDaVtBAdg.png">
@@ -50,39 +50,38 @@ Fig. 1 : half precision floating point format.
                     ```  (−1) ^ signbit × 2 ^ exponent value − 15 × 1.0 + binary fraction series ```  
 
 > Based on half precision floating point methodology if we tried to add 1 + 0.0001 the output will be 1 because of the limited range and aligning between 1 and 0.0001 as shown in this [answer](https://cs.stackexchange.com/questions/63642/how-to-add-two-numbers-in-iee754-half-precision-format).  
-> And that will cause numbers of problems while training DNNs.  
-> For trying and investigation through conversion or adding in binary 16 float point check this [site](http://weitz.de/ieee/).
+><br>
+> And that will cause numbers of problems while training DNNs, For trying and investigation through conversion or adding in binary 16 float point check this [site](http://weitz.de/ieee/).
+<br>   
 
-<br>
-
-# The main issues while training with FP16
+# **The main issues while training with FP16**
 1. Values is imprecise.
 2. Underflow Risk.
 3. Exploding Risk.
 
-### Values is imprecise
+### **Values is imprecise**
 In neural Network training all weights, activations, and gradients are stored as FP16.  
 And as we know updating weights is done based on this equation   
 **New_weight = Weight - Learning_Rate * Weight.Gradient**  
 Since Weight.Gradient and Learning_Rate usually with small values and as shown before in half precision if the weight is 1 and Learning_Rate is 0.0001 or lower that will made freezing thrugh weights value.  
 
-### Underflow Risk
+### **Underflow Risk**
 In FP16, Gradients will get converted to zero because gradients usually are too low.   
 In FP16 arithmetic the values smaller than 0.000000059605 = 2 ^ -24 become zero as this value is the smallest positive subnormal number and for more details investigate [here](https://en.wikipedia.org/wiki/Half-precision_floating-point_format).   
 With underflow, network never learns anything.  
 
-### Overflow Risk
+### **Overflow Risk**
 In FP16, activations and network paramters can increase till hitting NANs.   
 With overflow or exploding, network learns garbage.  
 <br>
 
-# The Proposed Techniques for Training with Mixed Precision  
+# **The Proposed Techniques for Training with Mixed Precision**
 Mainly there are three techniques for preventing the loss of critical information.  
 1. Single precision FP32 Master copy of weights and updates.  
 2. Loss (Gredient) Scaling.  
 3. Accumulating half precision products into single precision.  
 
-### Single precision FP32 Master copy of weights and updates
+### **Single precision FP32 Master copy of weights and updates**
 To overcome the first problem we use a copy from the FP32 master of all weights and in each iteration apply the forward and backward propagation in FP16 and then update weights stored in the master copy as shown below.  
 
 <p align="center">
@@ -91,14 +90,14 @@ To overcome the first problem we use a copy from the FP32 master of all weights 
 <p align="center"> Fig. 3 : Mixed precision training iteration for a layer.   </p>
 Through the storing an additional copy of weights increases the memory requirements but the overall memory consumptions is approximately halved the need by FP32 training.  
 
-### Loss (Gredient) Scaling
+### **Loss (Gredient) Scaling**
 * Gradient values with magnitudes below 2 ^ -27 were not relevant to training network, whereas it was important to preserve values in the [2 ^ -27, 2 ^ -24] range.  
 * Most of the half precision range is not used by gradients, which tend to be small values with magnitudes below 1. Thus, we can multiply them by a scale factor S to keep relevant gradient values from becoming zeros.  
 * This constant scaling factor is chosen empirically or, if gradient statistics are available, directly by choosing a factor so that its product with the maximum absolute gradient value is below 65,504 (the maximum value representable in FP16).  
 * Of course we don’t want those scaled gradients to be in the weight update, so after converting them into FP32,  we can divide them by this scale factor (once they have no risks of becoming 0).   
 
 
-### Accumulating half precision products into single precision
+### **Accumulating half precision products into single precision**
 After investigatin through last issue found that the neural network arithmetic operations falls into three groups vector dot-products , Reductions and point-wise operations.  
 These categories benefit from different treatment when it comes to re-duced precision arithmetic.  
 * Some networks require that the FP16 vector dot-product accumulates the partial products into an FP32 value, which is then converted to FP16 before storing.  
@@ -107,7 +106,7 @@ These categories benefit from different treatment when it comes to re-duced prec
 
 <br>  
 
-# Mixed Precision Training at a high level
+# **Mixed Precision Training at a high level**
 1. Maintain a master copy of weights in FP32.
 2. Initialize S to a large value.
 3. For each iteration:
@@ -124,7 +123,7 @@ These categories benefit from different treatment when it comes to re-duced prec
     
 <br>  
 
-# Mixed Precision APIs  
+# **Mixed Precision APIs**
 * NVIDIA developed [Apex](https://github.com/NVIDIA/apex) as an extension for easy mixed precision and distributed training in Pytorch to enable researchers to  improve train their models.  
 * But now a native automatic mixed precision supported in pytorch to avoid some point in Apex like   
 1. Build extensions  
@@ -139,7 +138,7 @@ These categories benefit from different treatment when it comes to re-duced prec
 * And Tensorflow also supported mixed precision training.  
 <br>
 
-# Automatic Mixed Precision package - torch.cuda.amp  
+# **Automatic Mixed Precision package - torch.cuda.amp**
 * **torch.cuda.amp** provides convenience methods for running networks with mixed precision, where some operations use the torch.float32 (float) datatype and other operations use torch.float16 (half) as we have shown before.
 * Till now Pytorch still developing an automatic mixed precision package but Gradient Scaling class is done and stable for usage.
 * This Package mainly use **torch.cuda.amp.autocast and torch.cuda.amp.GradScaler** modules together.
