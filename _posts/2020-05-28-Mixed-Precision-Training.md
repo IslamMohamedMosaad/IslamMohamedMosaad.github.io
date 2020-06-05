@@ -6,6 +6,7 @@ categories: journal
 tags: [Half Precision,Deep Neural Networks,Single Precision,Mixed Precision,FP16]
 image: maxresdefault.jpg
 ---
+<br>
 
 # **A High-Level Overview**
 
@@ -52,8 +53,8 @@ Fig. 1 : half precision floating point format.
 > Based on half precision floating point methodology if we tried to add 1 + 0.0001 the output will be 1 because of the limited range and aligning between 1 and 0.0001 as shown in this [answer](https://cs.stackexchange.com/questions/63642/how-to-add-two-numbers-in-iee754-half-precision-format).  
 ><br>
 > And that will cause numbers of problems while training DNNs, For trying and investigation through conversion or adding in binary 16 float point check this [site](http://weitz.de/ieee/).  
-
 <br>   
+
 # **The main issues while training with FP16**  
 1. Values is imprecise.
 2. Underflow Risk.
@@ -106,7 +107,8 @@ These categories benefit from different treatment when it comes to re-duced prec
 * Some networks require that the FP16 vector dot-product accumulates the partial products into an FP32 value, which is then converted to FP16 before storing.  
 * Large reductions (sums across elements of a vector) should be carried out in FP32. Such reductionsmostly  come  up  in  batch-normalization  layers  when  accumulating  statistics  and  softmax  layers.  
 * Point-wise  operations,  such  as  non-linearities  and  element-wise  matrix  products,  are  memory-bandwidth limited. Since arithmetic precision does not impact the speed of these operations, either FP16 or FP32 math can be used.  
-<br>  
+<br>   
+
 # **Mixed Precision Training Steps**
 1. Maintain a master copy of weights in FP32.  
 2. Initialize S to a large value.  
@@ -132,12 +134,14 @@ These categories benefit from different treatment when it comes to re-duced prec
 5. Don't support Data Parallel and intra-process model parallelism   
 5. flaky checkpointing  
 6. Others    
-<br>  
+<br>
+
 # **Mixed Precision In Frameworks**
 * **torch.cuda.amp** fixes all of these issues, the interface become more flexible and intuitive, and the tighter integration with pytorch brings more future optimizations into scope.    
 * So No need now to compile Apex.  
 * Tensorflow also supported mixed precision training and that a great [source](https://medium.com/tensorflow/automatic-mixed-precision-in-tensorflow-for-faster-ai-training-on-nvidia-gpus-6033234b2540) for investigation.  
 <br>
+
 # **Automatic Mixed Precision package - Pytorch**
 * **[torch.cuda.amp](https://pytorch.org/docs/stable/amp.html)** provides convenience methods for running networks with mixed precision, where some operations use the torch.float32 (float) datatype and other operations use torch.float16 (half) as we have shown before.
 * Till now Pytorch still developing an automatic mixed precision package but Gradient Scaling class is done and stable for usage.
@@ -147,6 +151,7 @@ These categories benefit from different treatment when it comes to re-duced prec
 > Note :
 If you trained your model on FP32 and while testing called model.half(), Pytorch will convert all the model weights to half precision and then forward with that.
 <br>
+
 # **References**
 * [Mixed Precision Training Paper](https://arxiv.org/pdf/1710.03740.pdf).
 * [Training Mixed Precision User Guide](https://docs.nvidia.com/deeplearning/performance/pdf/Training-Mixed-Precision-User-Guide.pdf).
