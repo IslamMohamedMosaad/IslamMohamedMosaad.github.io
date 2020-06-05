@@ -153,14 +153,15 @@ These categories benefit from different treatment when it comes to re-duced prec
 > Note :
 If you trained your model on FP32 and while testing called model.half(), Pytorch will convert all the model weights to half precision and then forward with that.
 
-
+<br>
 # **References**
 * [Mixed Precision Training Paper](https://arxiv.org/pdf/1710.03740.pdf).
 * [Training Mixed Precision User Guide](https://docs.nvidia.com/deeplearning/performance/pdf/Training-Mixed-Precision-User-Guide.pdf).
 * [Introduction For Mixed Precision Training By Fastai](https://forums.fast.ai/t/mixed-precision-training/20720).
-* [https://docs.nvidia.com/deeplearning/performance/mixed-precision-training/index.html#introduction](https://devblogs.nvidia.com/apex-pytorch-easy-mixed-precision-training/).
+* [Apex Pytorch Easy M ixed Precision Training](https://devblogs.nvidia.com/apex-pytorch-easy-mixed-precision-training/).
 * [Automatic Mixed Precision in TensorFlow](https://medium.com/tensorflow/automatic-mixed-precision-in-tensorflow-for-faster-ai-training-on-nvidia-gpus-6033234b2540).
 * [Automatic Mixed Precision Package In Pytorch](https://pytorch.org/docs/master/notes/amp_examples.html#amp-examples).
+<br>
 
 
 
