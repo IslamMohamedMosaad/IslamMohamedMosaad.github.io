@@ -5,6 +5,7 @@ disqus:
 
 # If you are not using Google Analytics, please change 'google-ID' to an empty string
 google-ID: 'UA-167971286-1'
+google_verify: jPjI6tpix8bjFuWGXIp3FMwjEbw0nq92ceulEfz7Vyg
 
 menu:
 - {name: 'About', path: 'menu', url: 'about.html'}
