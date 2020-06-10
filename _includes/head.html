@@ -2,11 +2,11 @@
 
   <title>
     {% if page.title == "Home" %}
-      {{ site.title }} 
+      {{ site.description }}
     {% else if page.title == "About"  %}
-          {{ site.title }} 
+          {{ site.description }}
     {% else %}
-      {{ page.title }} | {{ site.title }}
+      {{ site.description }}
     {% endif %}
   </title>
 
