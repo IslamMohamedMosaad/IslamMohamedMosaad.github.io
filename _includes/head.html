@@ -3,8 +3,12 @@
   <title>
     {% if page.title == "Home" %}
       {{ site.title }}
-    {% elsif page.title == "Contact" || page.title == "Writing" ||  page.title == "About" %}
+    {% elsif page.title == "Contact" %}
       {{ page.title }} | {{ site.title }}   
+    {% elsif page.title == "Writing" %}
+      {{ page.title }} | {{ site.title }}  
+    {% elsif page.title == "About" %}
+      {{ page.title }} | {{ site.title }}  
     {% else %}
       {{ page.title }}   
     {% endif %}
