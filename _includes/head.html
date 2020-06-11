@@ -3,7 +3,7 @@
   <title>
     {% if page.title == "Home" %}
       {{ site.title }}
-    {% if page.title == "Contact" or page.title == "Writing" or page.title == "About" %}
+    {% if page.title == "Contact" or if page.title == "Writing" or if page.title == "About" %}
       {{ page.title }} | {{ site.title }}   
     {% else %}
       {{ page.title }}   
