@@ -3,10 +3,10 @@
   <title>
     {% if page.title == "Home" %}
       {{ site.title }}
-    {% else if page.layout == "post"  %}
-          {{ page.title }}
-    {% else %}
+    {% if page.title == "Contact" or page.title == "Writing" or page.title == "About" %}
           {{ page.title }} | {{ site.title }}   {% endif %}
+    {% else %}
+              {{ page.title }}
   </title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
