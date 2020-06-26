@@ -18,12 +18,12 @@ So new techniques have been developed to train models faster ( without losing ac
 In neural nets, all the computations are done in a **single precision floating point**.  
 **Single precision floating point** arithmetic deals with 32-bit floating point numbers which means that all the floats in all the arrays that represent inputs, activations, weights .. etc are 32-bit floats (FP32).  
   
-So an idea to reduce memory usage by dealing with 16-bits floats which called **Half precision floating point format** (FP16) But Half precision had some issues which localized in its small range and low precision, unlike single or double precision, floats, and for this reason, half precision sometimes won’t able to achieve the same accuracy.  
+So an idea to reduce memory usage by dealing with 16-bits floats which called **Half precision floating point format** (FP16). But Half precision had some issues which localized in its small range and low precision, unlike single or double precision, floats. And for this reason, half precision sometimes won’t able to achieve the same accuracy.  
 So with **Mixed precision** which uses both single and half precision representations will able to speed up training and achieving the same accuracy.  
 <br>   
 
 # **Problems In Half Precision**
-<p>To understand the problems inhalf precision, let’s have a look what an FP16 looks like :</p>  
+<p>To understand the problems in half precision, let’s have a look what an FP16 looks like :</p>  
 
 <p align="center">
 <img align="center" width="400" height="100" src="../assets/img/floating-point-arithmetic-half-precision.jpg">
@@ -46,10 +46,10 @@ Fig. 1 : half precision floating point format.
 <p align="center"> Fig. 2 : half precision floating point formatt with value for bits. </p>
 
 1. If the exponent bits is ones (11111), then the value will be NaN ("Not a number").  
-2. If the exponent bits is zeros (0000), then the value will be a subnormal number and calculated by :  
-                    ```  (−1) ^ signbit × 2 ^  −14 × 0.0 + binary fraction series ```  
+2. If the exponent bits is zeros (0000), then the value will be a [subnormal number](https://stackoverflow.com/questions/8341395/what-is-a-subnormal-floating-point-number) and calculated by :  
+                    ```  (−1) ^ signbit × 2 ^  −14 × 0.significantbits_base_2 ```  
 3. Otherwise the value will be a normalized value and calculated by :  
-                    ```  (−1) ^ signbit × 2 ^ exponent value − 15 × 1.0 + binary fraction series ```  
+                    ```  (−1) ^ signbit × 2 ^ exponent value − 15 × 1.significantbits_base_2 ```  
 
 > Based on half precision floating point methodology if we tried to add 1 + 0.0001 the output will be 1 because of the limited range and aligning between 1 and 0.0001 as shown in this [answer](https://cs.stackexchange.com/questions/63642/how-to-add-two-numbers-in-iee754-half-precision-format).  
 ><br>
@@ -77,7 +77,7 @@ With underflow, network never learns anything.
 
 ### **Overflow Risk**
 In FP16, activations and network paramters can increase till hitting NANs.   
-With overflow or exploding, network learns garbage.  
+With overflow or exploding gradients, network learns garbage.  
 <br>
 
 # **The Proposed Techniques for Training with Mixed Precision**
@@ -103,16 +103,16 @@ Through the storing an additional copy of weights increases the memory requireme
 
 
 ### **Accumulating half precision products into single precision**
-After investigatin through last issue found that the neural network arithmetic operations falls into three groups vector dot-products , Reductions and point-wise operations.  
+After investigatin through last issue found that the neural network arithmetic operations falls into three groups: vector dot-products, Reductions and point-wise operations.  
 These categories benefit from different treatment when it comes to re-duced precision arithmetic.  
 * Some networks require that the FP16 vector dot-product accumulates the partial products into an FP32 value, which is then converted to FP16 before storing.  
-* Large reductions (sums across elements of a vector) should be carried out in FP32. Such reductionsmostly  come  up  in  batch-normalization  layers  when  accumulating  statistics  and  softmax  layers.  
+* Large reductions (sums across elements of a vector) should be carried out in FP32. Such reductions mostly  come  up  in  batch-normalization  layers  when  accumulating  statistics  and  softmax  layers.  
 * Point-wise  operations,  such  as  non-linearities  and  element-wise  matrix  products,  are  memory-bandwidth limited. Since arithmetic precision does not impact the speed of these operations, either FP16 or FP32 math can be used.  
 <br>   
 
 # **Mixed Precision Training Steps**
 1. Maintain a master copy of weights in FP32.  
-2. Initialize S to a large value.  
+2. Initialize scaling factor (S) to a large value.  
 3. For each iteration:  
     3.1 Make an FP16 copy of the weights.  
     3.2 Forward propagation (FP16 weights and activations).  
@@ -125,46 +125,47 @@ These categories benefit from different treatment when it comes to re-duced prec
     3.7 Complete the weight update (including gradient clipping, etc.).  
     3.8 If there hasn’t been an Inf or NaN in the last N iterations, increase S.     
 <br>  
+"now native", "is supported", "PyTorch" (replace all), point: drawbacks/points, "like""
 
 # **Mixed Precision APIs**
-* NVIDIA developed [Apex](https://github.com/NVIDIA/apex) as an extension for easy mixed precision and distributed training in Pytorch to enable researchers to  improve train their models.  
-* But now a native automatic mixed precision supported in pytorch to avoid some point in Apex like   
+* NVIDIA developed [Apex](https://github.com/NVIDIA/apex) as an extension for easy mixed precision and distributed training in Pytorch to enable researchers to improve training their models.  
+* But now native automatic mixed precision is supported in pytorch to replace Apex.
+* Apex drawback :   
 1. Build extensions  
 2. Windows not supported  
 3. Don't guarantee Pytorch version compatibility  
-4. Don't support forward/backward compatibilty  
+4. Don't support forward/backward compatibilty (Casting data flow)  
 5. Don't support Data Parallel and intra-process model parallelism   
-5. flaky checkpointing  
+5. Flaky checkpointing  
 6. Others    
 <br>
 
 # **Mixed Precision In Frameworks**
-* **torch.cuda.amp** fixes all of these issues, the interface become more flexible and intuitive, and the tighter integration with pytorch brings more future optimizations into scope.    
+* **torch.cuda.amp** fixes all of these issues, the interface became more flexible and intuitive, and the tighter integration with pytorch brings more future optimizations into scope.    
 * So No need now to compile Apex.  
-* Tensorflow also supported mixed precision training and that a great [source](https://medium.com/tensorflow/automatic-mixed-precision-in-tensorflow-for-faster-ai-training-on-nvidia-gpus-6033234b2540) for investigation.  
+*See [Automatic Mixed Precision in TensorFlow for Faster AI Training on NVIDIA GPUs](https://medium.com/tensorflow/automatic-mixed-precision-in-tensorflow-for-faster-ai-training-on-nvidia-gpus-6033234b2540).  
 <br>
 
 # **Automatic Mixed Precision package - Pytorch**
 * **[torch.cuda.amp](https://pytorch.org/docs/stable/amp.html)** provides convenience methods for running networks with mixed precision, where some operations use the torch.float32 (float) datatype and other operations use torch.float16 (half) as we have shown before.
-* Till now Pytorch still developing an automatic mixed precision package but Gradient Scaling class is done and stable for usage.
+* Till now Pytorch is still developing an automatic mixed precision package but Gradient Scaling (GradScaler class) is ready and stable for usage.
 * This Package mainly use **torch.cuda.amp.autocast and torch.cuda.amp.GradScaler** modules together.
 * **[torch.cuda.amp.GradScaler](https://pytorch.org/docs/stable/notes/amp_examples.html#gradient-scaling)** is not a complete implementation of automatic mixed precision but useful when you manually run regions of your model in float16.
-* If you aren’t sure how to choose operation precision manually  so you have to use **[torch.cuda.amp.autocast](https://pytorch.org/docs/master/amp.html#autocasting)** which serves as context managers or decorators that allow regions of your script to run in mixed precision `NOT Stable Yet`.
+* If you aren’t sure how to choose operation precision manually  so you have to use **[torch.cuda.amp.autocast](https://pytorch.org/docs/master/amp.html#autocasting)** which serves as context managers or decorators that allow regions of your script to run in mixed precision (NOT Stable Yet).
 > Note :
-If you trained your model on FP32 and while testing called model.half(), Pytorch will convert all the model weights to half precision and then forward with that.
+If you trained your model in FP32 and while testing called model.half(), Pytorch will convert all the model weights to half precision and then proceed with that.
 <br>
-<br>
+<br
 
 # **References**
-* [Mixed Precision Training Paper](https://arxiv.org/pdf/1710.03740.pdf).
+* [Mixed Precision Training](https://arxiv.org/pdf/1710.03740.pdf).
 * [Training Mixed Precision User Guide](https://docs.nvidia.com/deeplearning/performance/pdf/Training-Mixed-Precision-User-Guide.pdf).
 * [Introduction For Mixed Precision Training By Fastai](https://forums.fast.ai/t/mixed-precision-training/20720).
-* [Apex Pytorch Easy M ixed Precision Training](https://devblogs.nvidia.com/apex-pytorch-easy-mixed-precision-training/).
+* [Apex Pytorch Easy Mixed Precision Training](https://devblogs.nvidia.com/apex-pytorch-easy-mixed-precision-training/).
 * [Automatic Mixed Precision in TensorFlow](https://medium.com/tensorflow/automatic-mixed-precision-in-tensorflow-for-faster-ai-training-on-nvidia-gpus-6033234b2540).
 * [Automatic Mixed Precision Package In Pytorch](https://pytorch.org/docs/master/notes/amp_examples.html#amp-examples).
 <br>
 <br>  
-
 
 
 
