@@ -143,7 +143,7 @@ These categories benefit from different treatment when it comes to re-duced prec
 # **Mixed Precision In Frameworks**
 * **torch.cuda.amp** fixes all of these issues, the interface became more flexible and intuitive, and the tighter integration with pytorch brings more future optimizations into scope.    
 * So No need now to compile Apex.  
-*See [Automatic Mixed Precision in TensorFlow for Faster AI Training on NVIDIA GPUs](https://medium.com/tensorflow/automatic-mixed-precision-in-tensorflow-for-faster-ai-training-on-nvidia-gpus-6033234b2540).  
+* See [Automatic Mixed Precision in TensorFlow for Faster AI Training on NVIDIA GPUs](https://medium.com/tensorflow/automatic-mixed-precision-in-tensorflow-for-faster-ai-training-on-nvidia-gpus-6033234b2540).  
 <br>
 
 # **Automatic Mixed Precision package - Pytorch**
