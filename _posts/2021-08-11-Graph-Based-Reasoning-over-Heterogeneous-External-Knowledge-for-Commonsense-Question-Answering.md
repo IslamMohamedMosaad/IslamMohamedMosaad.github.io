@@ -3,7 +3,7 @@ layout: post
 title: "Graph-Based Reasoning over Heterogeneous External Knowledge for Commonsense Question Answering"
 author: "Islam Mohamed"
 categories: journal
-tags: [Half Precision,Deep Neural Networks,Single Precision,Mixed Precision,FP16]
+tags: [Commonsense Question Answering, Commonsense, Reasoning, External Knowledge]
 image: overview of our proposed graph-based reasoning model.png
 ---
 <br>
@@ -42,50 +42,51 @@ Fig. 1 : knowledge extraction and graph-based reasoning
 ### **Extract evidence from external knowledge base**
 ### **Method**
 
-    1. Manual labeling-time-consuming, labor-intensive and costly.
+ 1. Manual labeling-time-consuming, labor-intensive and costly.
 
-    2. Only extract evidence from (structured/unstructured) knowledge sources-without using knowledge from different sources at the same time, the obtained evidence may not be comprehensive.
+ 2. Only extract evidence from (structured/unstructured) knowledge sources-without using knowledge from different sources at the same time, the obtained evidence may not be comprehensive.
 
-    3. Fusion of knowledge in structured and unstructured knowledge bases, such as the fusion of structured ConceptNet library and plain text Wikipedia library, and extract evidence from it
+ 3. Fusion of knowledge in structured and unstructured knowledge bases, such as the fusion of structured ConceptNet library and plain text Wikipedia library, and extract evidence from it
 
 ## **Specific implementation**
 
 ### **Extract from ConceptNet**
 
-    1. Identify entities that appear in different problems and options in ConceptNet.
+ 1. Identify entities that appear in different problems and options in ConceptNet.
 
-    2. Extract the path from the entity in the question to the entity in the candidate from ConceptNet (less than 3 hops)
+ 2. Extract the path from the entity in the question to the entity in the candidate from ConceptNet (less than 3 hops)
 
 ### **Extract from Wikipedia**
 
-    1. Use Spacy to extract 107M sentences from them, and use Elastic Search tools to build a sentence index.
+ 1. Use Spacy to extract 107M sentences from them, and use Elastic Search tools to build a sentence index.
 
-    2. For each training example, remove the stop words in the question sentence and the candidate, and then concatenate all the words as a search query.
+ 2. For each training example, remove the stop words in the question sentence and the candidate, and then concatenate all the words as a search query.
 
-    3. Use the Elastic search engine to sort between the search query and all sentences, and select top-K sentences as the evidence information provided by Wikipedia (in the experiment, K=10).
+ 3. Use the Elastic search engine to sort between the search query and all sentences, and select top-K sentences as the evidence information provided by Wikipedia (in the experiment, K=10).
 
 ## **Build a graph for each source of knowledge**
 ### **Method**
 
-    1. For the ConceptNet library, use its own triples
+ 1. For the ConceptNet library, use its own triples
 
-    2. For the Wikipedia library, extract the triples in the sentence through the semantic role labeling (SRL).
+ 2. For the Wikipedia library, extract the triples in the sentence through the semantic role labeling (SRL).
 
 ## **Specific implementation**
 
 ### **Build a ConceptNet graph**
 
-    1. Split the path extracted from ConceptNet into triples, treat each triple as a node and merge it into the graph. for triples containing the same entity, add the corresponding nodes in the graph Previous side
+ 1. Split the path extracted from ConceptNet into triples, treat each triple as a node and merge it into the graph. for triples containing the same entity, add the corresponding nodes in the graph Previous side
 
-    2. In order to obtain the context word representation of the node in ConceptNet, the triplet is converted into a natural language sentence according to the relational template.
+ 2. In order to obtain the context word representation of the node in ConceptNet, the triplet is converted into a natural language sentence according to the relational template.
 
 ### **Build a Wikipedia diagram**
 
-    1. Use SRL to extract the arguments of each predicate in the sentence, with the predicate and the argument as nodes, and the relationship between them as edges
+ 1. Use SRL to extract the arguments of each predicate in the sentence, with the predicate and the argument as nodes, and the relationship between them as edges
 
-    2. Similarly, in order to enhance the connectivity of the constructed graph, the edges between nodes a and b are added based on two given rules:
-        1. b contains a and the number of words in a is greater than 3.
-        2. a and b have only one different word, and both a and b contain more than 3 words.
+ 2. Similarly, in order to enhance the connectivity of the constructed graph, the edges between nodes a and b are added based on two given rules:  
+
+        1. b contains a and the number of words in a is greater than 3. 
+        2. a and b have only one different word, and both a and b contain more than 3 words.  
 
 ## **Coding map information, gathering evidence information**
 <p align="center">
@@ -97,24 +98,24 @@ Fig. 2 : overview of our proposed graph-based reasoning model
 
 ### **Specific implementation**
 
-    1.1 Use the Topology Sort algorithm to rearrange the order of the evidence sentences according to the graph structure obtained from the knowledge extraction part.
-    1.2 Use the structure of the obtained graph to redefine the relative position between the evidence words to make the relative positions of semantically related words closer;
-    1.3 Use the relational structure within the evidence to obtain a better contextual representation.
+ 1.1 Use the Topology Sort algorithm to rearrange the order of the evidence sentences according to the graph structure obtained from the knowledge extraction part.  
+ 1.2 Use the structure of the obtained graph to redefine the relative position between the evidence words to make the relative positions of semantically related words closer.  
+ 1.3 Use the relational structure within the evidence to obtain a better contextual representation.
 
-    2.1 Arranged the evidence sentences, questions, and all options extracted from the ConceptNet library and Wikipedia library.
-    2.2 The concatenation of the above 4 parts is encoded as the input of XLNet after using [sep] for separation
+ 2.1 Arranged the evidence sentences, questions, and all options extracted from the ConceptNet library and Wikipedia library.  
+ 2.2 The concatenation of the above 4 parts is encoded as the input of XLNet after using [sep] for separation
 
 
 ## **Make the final prediction**
 ### **Specific implementation**
 
-    1. Regarding the two evidence graphs as an undirected graph, use the word-level vector representation of question and answer + evidence provided by GCN on the knowledge graph and XLNet coding to encode to obtain the node-level representation.
+ 1. Regarding the two evidence graphs as an undirected graph, use the word-level vector representation of question and answer + evidence provided by GCN on the knowledge graph and XLNet coding to encode to obtain the node-level representation.
 
-    2. Evidence spread:
-        1. Gather information from neighbor nodes.
+ 2. Evidence spread:  
+        1. Gather information from neighbor nodes.  
         2. Combine and update node representation.
 
-    3. Use the graph attention network to process the node representation obtained by GCN and the input representation of XLNet, gather the graph-level representation, and then perform the final prediction score.
+ 3. Use the graph attention network to process the node representation obtained by GCN and the input representation of XLNet, gather the graph-level representation, and then perform the final prediction score.
 
 ## **Explanation of key modules and methods**
 ### **SRL**
