@@ -23,9 +23,9 @@ Evaluation : accuracy.
 
 ### **The problem we are facing**
 
-    1. How to obtain evidence information in the background knowledge related to the problem (extract triples and construct a graph for the knowledge source).
+ 1. How to obtain evidence information in the background knowledge related to the problem (extract triples and construct a graph for the knowledge source).
     
-    2. How to make predictions based on the obtained evidence information (the graph represents learning + graph reasoning to solve) 
+ 2. How to make predictions based on the obtained evidence information (the graph represents learning + graph reasoning to solve) 
 
 <br>   
 
@@ -33,10 +33,10 @@ Evaluation : accuracy.
 
 
 <p align="center">
-<img align="center" width="400" height="100" src="../assets/img/floating-point-arithmetic-half-precision.jpg">
+<img align="center" width="400" height="100" src="../assets/img/knowledge extraction and graph-based reasoning.png">
 </p>
 <p align="center">
-Fig. 1 : half precision floating point format.
+Fig. 1 : knowledge extraction and graph-based reasoning
 </p>
 
 ### **Extract evidence from external knowledge base**
@@ -88,6 +88,13 @@ Fig. 1 : half precision floating point format.
         2. a and b have only one different word, and both a and b contain more than 3 words.
 
 ## **Coding map information, gathering evidence information**
+<p align="center">
+<img align="center" width="400" height="100" src="../assets/img/overview of our proposed graph-based reasoning model.png">
+</p>
+<p align="center">
+Fig. 2 : overview of our proposed graph-based reasoning model
+</p>
+
 ### **Specific implementation**
 
     1.1 Use the Topology Sort algorithm to rearrange the order of the evidence sentences according to the graph structure obtained from the knowledge extraction part.
@@ -125,10 +132,10 @@ ElasticSearch: A Lucene-based search server. It provides a full-text search engi
 ### **Topology Sort**
 
 <p align="center">
-<img align="center" width="400" height="100" src="../assets/img/floating-point-arithmetic-half-precision.jpg">
+<img align="center" width="400" height="100" src="../assets/img/topology sort algorithm.png">
 </p>
 <p align="center">
-Fig. 1 : half precision floating point format.
+Fig.3 : topology sort algorithm
 </p>
 
 ### **Process ConceptNet**
@@ -157,8 +164,58 @@ And in order to better handle longer texts, Transformer-XL is used.
 
 ### **GCN**
 
-- The graph convolutional neural network, in fact, has the same function as CNN, which is a feature extractor, except that its object is graph data (the structure is very irregular, and the data does not have translation invariance.
-This makes the traditional CNN and RNN that are suitable for processing Euclidean spatial data such as pictures and languages ​​instantly invalid).
+- The graph convolutional neural network, in fact, has the same function as CNN, which is a feature extractor, except that its object is graph data (the structure is very irregular, and the data does not have translation invariance, which makes it suitable for processing pictures and languages. The traditional CNN and RNN that resemble Euclidean spatial data fail instantaneously). 
 
-- GCN has delicately designed a method to extract features from graph data, so that we can use these features to classify graph data.
-(Node classification), graph classification (graph classification), edge prediction (link prediction), you can also get the embedding representation of the graph (graph embedding) by the way.
+- GCN has delicately designed a method of extracting features from graph data, so that we can use these features to perform node classification, graph classification, link prediction, and link prediction on graph data. You can get the graph embedding by the way. 
+
+- The process of encoding the evidence map in Step 4 is actually equivalent to extracting the features of the map data.
+
+- GCN is also a neural network layer, and the propagation mode between layers is as follows (using the Laplacian matrix).
+
+<p align="center">
+<img align="center" width="400" height="100" src="../assets/img/gcn.png">
+</p>
+<p align="center">
+Fig.4 : GCN
+
+### **GAT**
+
+- Like all attention mechanisms, the calculation of GAT is divided into two steps: Calculate the attention coefficient. for vertex i, pay attention to calculating the similarity coefficient between it and its adjacent nodes.
+
+<p align="center">
+<img align="center" width="400" height="100" src="../assets/img/attention1.png">
+</p>
+<p align="center">
+</p>
+
+- The linear mapping of the shared parameter W enhances the feature of the vertex, a(·) maps the spliced high-dimensional feature to a real number. This process is generally implemented by a single-layer feedforward neural network. The correlation coefficient The attention coefficient is obtained by normalization with softmax. To understand the calculation process, see the figure below. 
+
+<p align="center">
+<img align="center" width="400" height="100" src="../assets/img/attention2.png">
+</p>
+<p align="center">
+</p>
+
+Weighted summation. Perform weighted summation of the calculated attention coefficients, plus the multi-head mechanism for enhancement 
+
+<p align="center">
+<img align="center" width="400" height="100" src="../assets/img/attention3.png">
+</p>
+<p align="center">
+</p>
+
+### **Similarities and differences between GCN and GAT**
+
+- Same: Both GCN and GAT aggregate the features of neighbor vertices to the central vertex (an aggregate operation), and learn new vertex feature expressions by using local stationarity on the graph.
+- Difference: GCN uses the Laplacian matrix, and GAT uses the attention coefficient.
+
+### **Why integrate heterogeneous knowledge sources?**
+
+- Structured knowledge (Structured Knowledge Source): Contains a large amount of triplet information (concepts and their relationships), which is conducive to reasoning, but there is a problem of low coverage.  
+- Unstructured Knowledge (Unstructured Knowledge Source): Plain-Text, which contains a large amount of redundant and wide-covered information, which can assist/supplement structured knowledge.  
+
+<p align="center">
+<img align="center" width="400" height="100" src="../assets/img/model.png">
+</p>
+<p align="center">
+</p>
