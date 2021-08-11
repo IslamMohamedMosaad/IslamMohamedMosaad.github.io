@@ -4,7 +4,7 @@ title: "Graph-Based Reasoning over Heterogeneous External Knowledge for Commonse
 author: "Islam Mohamed"
 categories: journal
 tags: [Half Precision,Deep Neural Networks,Single Precision,Mixed Precision,FP16]
-image: maxresdefault.jpg
+image: overview of our proposed graph-based reasoning model.png
 ---
 <br>
 
