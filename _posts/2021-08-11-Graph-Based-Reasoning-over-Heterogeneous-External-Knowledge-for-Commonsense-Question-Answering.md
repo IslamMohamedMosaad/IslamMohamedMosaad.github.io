@@ -205,11 +205,13 @@ Weighted summation. Perform weighted summation of the calculated attention coeff
 <p align="center">
 </p>
 
+<br>   
 
 ### **Similarities and differences between GCN and GAT**  
 
 - Same: Both GCN and GAT aggregate the features of neighbor vertices to the central vertex (an aggregate operation), and learn new vertex feature expressions by using local stationarity on the graph.  
 - Difference: GCN uses the Laplacian matrix, and GAT uses the attention coefficient.  
+<br>   
 
 
 ### **Why integrate heterogeneous knowledge sources?**    
