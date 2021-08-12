@@ -205,12 +205,14 @@ Weighted summation. Perform weighted summation of the calculated attention coeff
 <p align="center">
 </p>
 
-### **Similarities and differences between GCN and GAT**
+
+### **Similarities and differences between GCN and GAT**  
 
 - Same: Both GCN and GAT aggregate the features of neighbor vertices to the central vertex (an aggregate operation), and learn new vertex feature expressions by using local stationarity on the graph.  
 - Difference: GCN uses the Laplacian matrix, and GAT uses the attention coefficient.  
 
-### **Why integrate heterogeneous knowledge sources?**  
+
+### **Why integrate heterogeneous knowledge sources?**    
 
 - Structured knowledge (Structured Knowledge Source): Contains a large amount of triplet information (concepts and their relationships), which is conducive to reasoning, but there is a problem of low coverage.  
 - Unstructured Knowledge (Unstructured Knowledge Source): Plain-Text, which contains a large amount of redundant and wide-covered information, which can assist/supplement structured knowledge.  
