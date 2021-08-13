@@ -178,7 +178,7 @@ Fig.4 : GCN
 </p>
 
 
-### **GAT**
+### **Graph Attention Networks (GAT)**
 
 - Like all attention mechanisms, the calculation of GAT is divided into two steps: Calculate the attention coefficient. for vertex i, pay attention to calculating the similarity coefficient between it and its adjacent nodes.
 
