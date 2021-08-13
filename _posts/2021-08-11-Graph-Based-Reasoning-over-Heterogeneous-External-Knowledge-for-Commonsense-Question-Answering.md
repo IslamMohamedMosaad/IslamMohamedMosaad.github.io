@@ -165,11 +165,9 @@ And in order to better handle longer texts, Transformer-XL is used.
 
 ### **GCN**
 
-- The graph convolutional neural network, in fact, has the same function as CNN, which is a feature extractor, except that its object is graph data (the structure is very irregular, and the data does not have translation invariance, which makes it suitable for processing pictures and languages. The traditional CNN and RNN that resemble Euclidean spatial data fail instantaneously). 
+- The graph convolutional neural network, in fact, has the same function as CNN, which is a feature extractor, except that its object is graph data (the structure is very irregular, and the data does not have translation invariance, which makes it suitable for processing pictures and languages). 
 
-- GCN has delicately designed a method of extracting features from graph data, so that we can use these features to perform node classification, graph classification, link prediction, and link prediction on graph data. You can get the graph embedding by the way. 
-
-- The process of encoding the evidence map in Step 4 is actually equivalent to extracting the features of the map data.
+- GCN has designed a method of extracting features from graph data, so that we can use these features to perform node classification, graph classification, and link prediction on graph data. You can get the graph embedding by the way. 
 
 - GCN is also a neural network layer, and the propagation mode between layers is as follows (using the Laplacian matrix).
 <p align="center">
