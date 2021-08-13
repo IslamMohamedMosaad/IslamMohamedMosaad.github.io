@@ -182,7 +182,7 @@ Fig.4 : GCN
 
 - Like all attention mechanisms, the calculation of GAT is divided into two steps:
  
-1. Calculate the attention coefficient. for vertex i, pay attention to calculating the similarity coefficient between it and its adjacent nodes.
+1- Calculate the attention coefficient. for vertex i, pay attention to calculating the similarity coefficient between it and its adjacent nodes.
 
 <p align="center">
 <img align="center" width="400" height="100" src="../assets/img/attention1.png">
@@ -198,7 +198,7 @@ The linear mapping of the shared parameter W enhances the feature of the vertex,
 <p align="center">
 </p>
 
-2. Perform weighted summation of the calculated attention coefficients, plus the multi-head mechanism for enhancement.
+2- Perform weighted summation of the calculated attention coefficients, plus the multi-head mechanism for enhancement.
 
 
 <p align="center">
