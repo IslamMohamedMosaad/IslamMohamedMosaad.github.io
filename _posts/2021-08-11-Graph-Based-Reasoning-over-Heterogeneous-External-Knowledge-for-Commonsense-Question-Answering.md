@@ -153,8 +153,8 @@ Convert triples into natural sentences, for example, (mammals, HasA, hair) -> ma
 
 - The inconsistency between BERT training data and test data. When we train BERT, Will randomly mask some words, but in the process of using, we don’t have labels like MASK. So this problem causes the training process and the use (testing) process to be different. This is a major problem.
 
-- BERT cannot be used to generate data. Since BERT itself is trained on the structure of Denoising Autoencoder(DAE), it is not like those models trained based on language models that have good generation capabilities.
-The previous methods such as NNLM and ELMo are generated based on language models, so some sentences, texts, etc. can be generated with the trained model.
+- BERT cannot be used to generate data. Since BERT itself is trained on the structure of Denoising Autoencoder (DAE), it is not like those models trained based on language models that have good generation capabilities.
+The previous methods such as Neural Network Language Model (NNLM) and Embeddings from Language Models (ELMo) are generated based on language models, so some sentences, texts, etc. can be generated with the trained model.
 But the methodology based on this kind of generative model itself has some problems, because when understanding the meaning of a word in the context, the language model only considers its upper part, not the following!
 
 Based on these shortcomings of BERT, scholars proposed XLNet, and also borrowed from the language model, as well as the advantages and disadvantages of BERT. The specific approach is as follows:
