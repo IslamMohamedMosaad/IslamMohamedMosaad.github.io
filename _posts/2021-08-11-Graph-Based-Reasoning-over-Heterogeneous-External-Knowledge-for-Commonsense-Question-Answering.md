@@ -151,9 +151,9 @@ Convert triples into natural sentences, for example, (mammals, HasA, hair) -> ma
 
 ### **The reasons for using XLNet instead of BERT are summarized as follows:**
 
-- The inconsistency between BERT training data and test data is also called Discrephancy. When we train BERT, Will randomly mask some words, but in the process of using, we don’t have labels like MASK. So this problem causes the training process and the use (testing) process to be different. This is a major problem.
+- The inconsistency between BERT training data and test data. When we train BERT, Will randomly mask some words, but in the process of using, we don’t have labels like MASK. So this problem causes the training process and the use (testing) process to be different. This is a major problem.
 
-- BERT cannot be used to generate data. Since BERT itself is trained on the structure of DAE, it is not like those models trained based on language models that have good generation capabilities.
+- BERT cannot be used to generate data. Since BERT itself is trained on the structure of Denoising Autoencoder(DAE), it is not like those models trained based on language models that have good generation capabilities.
 The previous methods such as NNLM and ELMo are generated based on language models, so some sentences, texts, etc. can be generated with the trained model.
 But the methodology based on this kind of generative model itself has some problems, because when understanding the meaning of a word in the context, the language model only considers its upper part, not the following!
 
