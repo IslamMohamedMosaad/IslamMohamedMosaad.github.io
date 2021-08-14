@@ -180,9 +180,8 @@ Fig.4 : GCN
 
 ### **Graph Attention Networks (GAT)**
 
-- Like all attention mechanisms, the calculation of GAT is divided into two steps:
- 
-1- Calculate the attention coefficient. for vertex i, pay attention to calculating the similarity coefficient between it and its adjacent nodes.
+- GAT uses attention to learn the relative weights between two connected nodes in message passing. 
+- First, GAT calculates the attention for the node pair i and j. The resulting vectors Whᵢ (hᵢ is the hidden representation of node i) and Whⱼ are concatenated (|| operator) and multiply with learnable vector a. Their attention, measuring the connective strength between them, is then computed with a softmax function.
 
 <p align="center">
 <img align="center" width="400" height="100" src="../assets/img/attention1.png">
@@ -190,7 +189,8 @@ Fig.4 : GCN
 <p align="center">
 </p>
 
-The linear mapping of the shared parameter W enhances the feature of the vertex, a(·) maps the spliced high-dimensional feature to a real number. This process is generally implemented by a single-layer feedforward neural network. The correlation coefficient The attention coefficient is obtained by normalization with softmax. To understand the calculation process, see the figure below. 
+- The linear mapping of the shared parameter W enhances the feature of the vertex, a(·) maps the spliced high-dimensional feature to a real number. This process is generally implemented by a single-layer feedforward neural network
+- The hidden representation for node i is then weighted by the computed attention α with the final result as
 
 <p align="center">
 <img align="center" width="400" height="100" src="../assets/img/attention2.png">
@@ -198,7 +198,7 @@ The linear mapping of the shared parameter W enhances the feature of the vertex,
 <p align="center">
 </p>
 
-2- Perform weighted summation of the calculated attention coefficients, plus the multi-head mechanism for enhancement.
+- Perform weighted summation of the calculated attention coefficients, plus the multi-head mechanism for enhancement.
 
 
 <p align="center">
