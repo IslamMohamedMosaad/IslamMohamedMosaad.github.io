@@ -67,13 +67,13 @@ The general idea of GCN is to apply convolution over a graph. Instead of having 
 - x is the input for the first layer and zᵢ is the output of layer i.
 - For each layer, we multiple z (or x for the first layer) with the weight matrix W and pass the output to an activation function σ, say ReLU. 
 
-</br>
+<br>
 
 - GCN is very similar, but the input to σ is ÂHⁱWⁱ instead of Wᵢzᵢ. 
 - i.e. σ(Wᵢzᵢ) v.s. σ(ÂHⁱWⁱ) where zᵢ and Hⁱ are the output vectors from the last hidden layer for NN and GCN respectively.
 - But please note that Wⁱ and Wᵢ are different and have different dimensions. And for the first layer in GCN, X contains an array of nodes instead of a single node x. X will be encoded as a matrix with each row contains the features of a node.
 
-</br>
+<br>
 
 - So what is Â? GCN introduces an adjacency matrix A as shown before.
 - The element Aᵢⱼ in A equals 1 if node i and j are connected. Otherwise, it will be zero. So Â indicates the neighbors of a node. 
@@ -91,7 +91,7 @@ The general idea of GCN is to apply convolution over a graph. Instead of having 
 - That comes to the output of the hidden layer to be σ(ÂHⁱWⁱ). 
 - If we ignore W for a second, for each node in a hidden layer, ÂHⁱ sums up features on each node with its neighbors.
 
-</br>
+<br>
 
 - However, we may face the vanishing or exploding problem in a NN if we don’t have certain control over the range of the hidden layer output. 
 - In specific, GCN wants Â to be normalized to maintain the scale of the output feature vectors. 
@@ -99,7 +99,7 @@ The general idea of GCN is to apply convolution over a graph. Instead of having 
 - At a high level, instead of summing up itself with its neighbor, multiplying the sum with the inverse D̂⁻¹ sort of averages them. 
 - Specifically, D̂ is a diagonal matrix with each diagonal element D̂ᵢᵢ counts the number of edges for the corresponding node i. And the output for each hidden layer becomes σ(D̂⁻¹ÂHⁱWⁱ), instead of σ(ÂHⁱWⁱ).
 
-</br>
+<br>
 
 - Let’s calculate D̂ in our example. For an undirected graph, the degree of a node is counted as the number of times an edge terminates at that node. So a self-loop will count twice. 
 - In our example, node 0 has 2 edges connecting to its neighbors plus a self-loop. Its degree equals 4 (i.e. 2 + 2). For node 3, its degree equals 5 (3 + 2).
