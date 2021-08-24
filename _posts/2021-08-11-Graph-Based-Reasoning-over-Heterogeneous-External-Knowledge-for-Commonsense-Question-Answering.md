@@ -95,6 +95,12 @@ Fig. 1 : knowledge extraction and graph-based reasoning
         1. b contains a and the number of words in a is greater than 3. 
         2. a and b have only one different word, and both a and b contain more than 3 words.  
 
+<p align="center">
+<img align="center" width="400" height="100" src="../assets/img/Screenshot from 2021-08-24 15-02-36.png">
+</p>
+<p align="center">
+</p>
+
 ## **Coding map information, gathering evidence information**
 <p align="center">
 <img align="center" width="400" height="100" src="../assets/img/overview of our proposed graph-based reasoning model.png">
