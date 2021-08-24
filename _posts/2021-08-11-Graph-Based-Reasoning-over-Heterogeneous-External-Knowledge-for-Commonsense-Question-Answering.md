@@ -79,6 +79,13 @@ Fig. 1 : knowledge extraction and graph-based reasoning
 
  2. In order to obtain the context word representation of the node in ConceptNet, the triplet is converted into a natural language sentence according to the relational template.
 
+<p align="center">
+<img align="center" width="400" height="100" src="../assets/img/Screenshot from 2021-08-24 14-57-13.png">
+</p>
+<p align="center">
+</p>
+
+
 ### **Build a Wikipedia diagram**
 
  1. Use SRL to extract the arguments of each predicate in the sentence, with the predicate and the argument as nodes, and the relationship between them as edges
