@@ -17,7 +17,7 @@ image: ../assets/img/Connecting the Dots: A Knowledgeable Path Generator for Com
 
 ## Paper structure
 <p align="center">
-<img align="center" width="400" height="100" src="../assets/img/Connecting the Dots: A Knowledgeable Path Generator for Commonsense Question Answering/img1.png">
+<img align="center" width="600" height="300" src="../assets/img/Connecting the Dots: A Knowledgeable Path Generator for Commonsense Question Answering/img1.png">
 </p>
 - Extract entities from question and answer choices.
 - Use the constructed path generator to generate a multi-hop knowledge path to connect each pair of question answering entities.
