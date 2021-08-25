@@ -4,7 +4,7 @@ title: "Connecting the Dots: A Knowledgeable Path Generator for Commonsense Ques
 author: "Islam Mohamed"
 categories: journal
 tags: [Commonsense Question Answering]
-image: img1.png
+image: img1.jpg
 ---
 <br>
 
