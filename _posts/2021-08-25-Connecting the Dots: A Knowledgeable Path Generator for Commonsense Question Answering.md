@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "A Knowledgeable Path Generator for Commonsense Question Answering"
+title: "Connecting the Dots: A Knowledgeable Path Generator for Commonsense Question Answering"
 author: "Islam Mohamed"
 categories: journal
 tags: [Commonsense Question Answering]
-image: img1.png
+image: gcn_web.png
 ---
 <br>
 
