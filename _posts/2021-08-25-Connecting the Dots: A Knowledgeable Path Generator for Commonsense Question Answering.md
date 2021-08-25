@@ -8,8 +8,6 @@ image: img1.jpg
 ---
 <br>
 
-### Connecting the Dots: A Knowledgeable Path Generator for Commonsense Question Answering
-
 ## Paper contribution
 -  It is proposed to learn a multi-hop knowledge path generator dynamically to generate structured evidence based on the problem.
 -  The generator is based on a pre-trained language model, and uses a large amount of unstructured knowledge stored in the language model to supplement the incompleteness of the knowledge base. 
