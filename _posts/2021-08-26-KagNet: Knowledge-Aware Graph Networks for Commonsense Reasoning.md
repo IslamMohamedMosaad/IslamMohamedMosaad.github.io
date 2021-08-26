@@ -45,7 +45,7 @@ image: KagNet_img1.jpg
 
 ### Knowledge-Aware Graph Network 
 <p align="center">
-<img align="center" width="400" height="100" src="../assets/img/KagNet: Knowledge-Aware Graph Networks for Commonsense Reasoning/img1.png">
+<img align="center" width="1200" height="900" src="../assets/img/KagNet: Knowledge-Aware Graph Networks for Commonsense Reasoning/img1.png">
 </p>
 #### Graph Convolutional Networks 
 - Use GCN to update the concept vector with the help of neighboring nodes helps to eliminate ambiguity and further obtain context-based concept embedding.
