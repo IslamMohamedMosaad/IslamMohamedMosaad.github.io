@@ -24,8 +24,8 @@ image: A Semantic_based_Method_for_Unsupervised_Commonsense_img1.png
 
 ### SEQA
 
-- Instead of directly estimating the probability P(A/|\Q) of the single choice A.  
-- The semantic score focuses on the probability P (M of A |Q) where M of A represents A’s semantics.  
+- Instead of directly estimating the probability P(A\|Q) of the single choice A.  
+- The semantic score focuses on the probability P (M of A|Q) where M of A represents A’s semantics.  
 - Ideally, we decompose P(M of A |Q) into the summation of the conditional probabilities of A’s supporters, where the supporters indicates all possible answers that have exactly the same semantics M of A .
 - Formally, the semantic score is defined as:
 
