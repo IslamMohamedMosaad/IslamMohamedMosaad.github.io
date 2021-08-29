@@ -68,15 +68,16 @@ image: KagNet_img1.jpg
 </p>
 
 - Use LSTM to encode a sequence of triple vectors to get the path vector 
-- R i,j can be understood as the potential relationship of all paths between a certain question and a certain answer in the schema graph.
+- R i,j can be can be viewed as the latent relation between the question concept and the answer concept, for which we aggregate the representations of all the paths between them in the schema graph.
+
 
 <p align="center">
 <img align="center" width="400" height="100" src="../assets/img/KagNet: Knowledge-Aware Graph Networks for Commonsense Reasoning/img4.png">
 </p>
 
 
-- It can be understood as looking for the latent semantic information in the statement (question + answer) s using relation network.
 - S can be obtained from the encoder of the language model (LSTM or GPT/BERT).
+- The T i,j is inspired from the Relation Network which also encodes the latent relational information yet from the context in the statement s instead of the schema graph g.
 
 <p align="center">
 <img align="center" width="400" height="100" src="../assets/img/KagNet: Knowledge-Aware Graph Networks for Commonsense Reasoning/img5.png">
@@ -96,14 +97,14 @@ image: KagNet_img1.jpg
 
 
 #### Hierarchical Attention Mechanism
-Choose more important paths and concepts. 
-Path-level: 
+- Choose more important paths and concepts. 
+- Path level attention: 
 
 <p align="center">
 <img align="center" width="400" height="100" src="../assets/img/KagNet: Knowledge-Aware Graph Networks for Commonsense Reasoning/img8.png">
 </p>
 
-Concept-pair-level: 
+- Concept pair level attention: 
 
 <p align="center">
 <img align="center" width="400" height="100" src="../assets/img/KagNet: Knowledge-Aware Graph Networks for Commonsense Reasoning/img9.png">
