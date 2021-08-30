@@ -141,6 +141,15 @@ the softmax layer) as a new formulation for the function Pk:
 
 - Finally, the score is standardized through a softmax layer to obtain the final probability of all choices.
 
+## Results 
+- Results on csqa Dataset
+
+<p align="center">
+<img align="center" width="400" height="100" src="../assets/img/Connecting the Dots: A Knowledgeable Path Generator for Commonsense Question Answering/img13.png">
+</p>  
+                                                  
+
+
 ## Summary
 
 - This paper proposes a generator for generating multi-hop knowledge paths as structured evidence to answer common sense questions.
