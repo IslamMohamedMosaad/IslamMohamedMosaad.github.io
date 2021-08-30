@@ -118,6 +118,14 @@ image: KagNet_img1.jpg
 - subjective reasoning
     - Some answers are based on subjective reasoning
 
+## Results 
+- Results on csqa Dataset
+<p align="center">
+<img align="center" width="400" height="100" src="../assets/img/KagNet: Knowledge-Aware Graph Networks for Commonsense Reasoning/img10.png>
+</p>
+
+
+
 ## Refrences
 - https://zhuanlan.zhihu.com/p/92141033
 - http://xingluxi.github.io/2019/09/09/paper-emnlp2019-kagnet/
