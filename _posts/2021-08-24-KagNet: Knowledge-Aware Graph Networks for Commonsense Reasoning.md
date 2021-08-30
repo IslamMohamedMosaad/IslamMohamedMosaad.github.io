@@ -120,9 +120,11 @@ image: KagNet_img1.jpg
 
 ## Results 
 - Results on csqa Dataset
+
 <p align="center">
-<img align="center" width="400" height="100" src="../assets/img/KagNet: Knowledge-Aware Graph Networks for Commonsense Reasoning/img10.png>
-</p>
+<img align="center" width="400" height="100" src="../assets/img/KagNet: Knowledge-Aware Graph Networks for Commonsense Reasoning/img10.png">
+</p>  
+                                                  
 
 
 
